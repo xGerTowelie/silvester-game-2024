@@ -1,7 +1,5 @@
-import Leaderboard from "@/components/Leaderboard";
-import { Button } from "@/components/ui/button";
-import { Settings } from "lucide-react";
 import type { Metadata } from "next";
+
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -14,19 +12,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex flex-col h-screen space-y-5 p-8 bg-background">
-            <nav className="flex flex-row items-center space-x-5">
-                <Button className="rounded"><Settings /></Button>
-                <p className="text-3xl font-normal">Game Monitor</p>
-            </nav>
-            <div className="flex flex-row gap-5 h-full">
-                <section className="border-2 border-muted rounded-xl p-16">
-                    <Leaderboard />
-                </section>
-                <section className="flex-1 border-2 border-muted rounded-xl p-16">
-                    {children}
-                </section>
-            </div>
+        <div className="flex min-h-screen justify-center items-center">
+            {children}
         </div>
     );
 }
