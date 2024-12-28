@@ -57,14 +57,14 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
     const allChoicesMade = round.step === "choices" && players.every(player => player.choice)
 
     return (
-        <div className="flex flex-col h-screen bg-gradient-to-br from-indigo-900 to-purple-900 text-white p-8">
+        <div className="flex flex-col w-screen min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 text-white p-8">
             <header className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold">Trivia Master</h1>
                 <div className="text-2xl">Round {iteration + 1}</div>
             </header>
 
-            <div className="flex-1 flex gap-8">
-                <Card className="flex-1 bg-white/10 backdrop-blur-md border-none text-white">
+            <div className="flex-1 flex gap-8 w-full">
+                <Card className="flex-1 min-w-0 bg-white/10 backdrop-blur-md border-none text-white">
                     <CardHeader>
                         <CardTitle className="text-3xl">Question</CardTitle>
                     </CardHeader>
@@ -110,7 +110,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                     </CardContent>
                 </Card>
 
-                <Card className="w-1/3 bg-white/10 backdrop-blur-md border-none text-white">
+                <Card className="w-1/3 max-w-md bg-white/10 backdrop-blur-md border-none text-white">
                     <CardHeader>
                         <CardTitle className="text-3xl">Leaderboard</CardTitle>
                     </CardHeader>
@@ -173,9 +173,15 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                     >
                         {getStepAction()} <ChevronRight className="ml-2 h-6 w-6" />
                     </Button>
+                    {round.step === "choices" && !allChoicesMade && (
+                        <div className="text-xl">
+                            Waiting: {players.filter(p => !p.choice).length}/{players.length}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     )
 }
+
 

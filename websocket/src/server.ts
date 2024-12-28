@@ -56,14 +56,12 @@ io.on("connection", (socket: Socket) => {
                 break;
             case "hint1":
                 Game.round.step = "bet1";
-                io.emit("make_bet");
                 break;
             case "bet1":
                 Game.round.step = "hint2";
                 break;
             case "hint2":
                 Game.round.step = "bet2";
-                io.emit("make_bet");
                 break;
             case "bet2":
                 Game.round.step = "solution";
@@ -79,8 +77,6 @@ io.on("connection", (socket: Socket) => {
                 Game.iteration++;
                 Game.players.forEach(player => {
                     player.choice = undefined;
-                    player.bet1 = undefined;
-                    player.bet2 = undefined;
                 });
                 break;
         }
@@ -121,18 +117,6 @@ io.on("connection", (socket: Socket) => {
         }
     });
 
-    socket.on("bet", (event: PlayerBetEvent) => {
-        const player = Game.players.find(p => p.name === event.bet.playerName);
-        if (player) {
-            if (Game.round.step === "bet1") {
-                player.bet1 = event.bet.value;
-            } else if (Game.round.step === "bet2") {
-                player.bet2 = event.bet.value;
-            }
-            console.log(`Player ${event.bet.playerName} submitted their ${Game.round.step}: ${event.bet.value}`);
-            io.emit("game_state_update", { game: Game });
-        }
-    });
 
     socket.on("kick_player", (playerName: string) => {
         const playerIndex = Game.players.findIndex(p => p.name === playerName);

@@ -17,7 +17,6 @@ type PlayerViewProps = {
 
 export default function PlayerView({ player, gameState, socket }: PlayerViewProps) {
     const [choice, setChoice] = useState("")
-    const [bet, setBet] = useState("")
 
     const submitChoice = (e: React.FormEvent) => {
         e.preventDefault()
@@ -28,27 +27,6 @@ export default function PlayerView({ player, gameState, socket }: PlayerViewProp
                 description: `You chose: ${choice}`,
             })
             setChoice("")
-        }
-    }
-
-    const submitBet = (e: React.FormEvent) => {
-        e.preventDefault()
-        if (socket && bet) {
-            const betValue = parseInt(bet)
-            if (isNaN(betValue) || betValue <= 0 || betValue > player.coins) {
-                toast({
-                    title: "Invalid bet",
-                    description: "Please enter a valid bet amount.",
-                    variant: "destructive",
-                })
-                return
-            }
-            socket.emit("bet", { bet: { playerName: player.name, value: betValue } })
-            toast({
-                title: "Bet placed",
-                description: `You bet ${betValue} coins`,
-            })
-            setBet("")
         }
     }
 
@@ -66,9 +44,6 @@ export default function PlayerView({ player, gameState, socket }: PlayerViewProp
                 </div>
             </CardHeader>
             <CardContent>
-                {gameState === "waiting" && (
-                    <p className="text-center text-lg">Waiting for the next step...</p>
-                )}
                 {gameState === "choices" && (
                     <form onSubmit={submitChoice} className="space-y-4">
                         <Input
@@ -82,23 +57,8 @@ export default function PlayerView({ player, gameState, socket }: PlayerViewProp
                         <Button type="submit" className="w-full bg-white text-black hover:bg-white/90">Submit Answer</Button>
                     </form>
                 )}
-                {(gameState === "bet1" || gameState === "bet2") && (
-                    <form onSubmit={submitBet} className="space-y-4">
-                        <Input
-                            type="number"
-                            placeholder="Enter your bet"
-                            value={bet}
-                            onChange={(e) => setBet(e.target.value)}
-                            min={1}
-                            max={player.coins}
-                            required
-                            className="bg-white/20 text-white placeholder-white/50"
-                        />
-                        <Button type="submit" className="w-full bg-white text-black hover:bg-white/90">Place Bet</Button>
-                    </form>
-                )}
-                {(gameState === "hint1" || gameState === "hint2" || gameState === "solution") && (
-                    <p className="text-center text-lg">Wait for the next betting round or the next question.</p>
+                {gameState !== "choices" && (
+                    <p className="text-center text-lg">Wait for the next question.</p>
                 )}
             </CardContent>
         </Card>

@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/sheet"
 import { Settings, Trophy } from 'lucide-react'
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Progress } from "@/components/ui/progress"
 import { toast } from "@/hooks/use-toast"
 
 const colorOptions = [
