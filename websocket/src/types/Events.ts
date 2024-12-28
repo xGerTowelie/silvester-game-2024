@@ -23,6 +23,7 @@ export type GameUpdateEvent = {
 
 export type JoinEvent = {
     name: string
+    color: string
 }
 
 export type JoinEventResponse = {

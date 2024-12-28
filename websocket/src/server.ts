@@ -38,29 +38,11 @@ io.on("connection", (socket: Socket) => {
     connections.set(socket.id, socket);
     console.log(`New connection added to the pool: ${socket.id}`);
 
-    // monitor calls
     socket.on("monitor", () => {
         monitor = socket;
         console.log("Monitor set/updated!");
-
-        const event: GameUpdateEvent = {
-            game: Game
-        };
-
+        const event: GameUpdateEvent = { game: Game };
         monitor.emit("game_state_update", event);
-        console.log("Game State sent to monitor.");
-    });
-
-    socket.on("request_choices", () => {
-        Game.round.step = "choices";
-        io.emit("make_choice");
-        console.log("Requesting all players to make their choices!");
-    });
-
-    socket.on("request_bets", () => {
-        Game.round.step = Game.round.step === "hint1" ? "bet1" : "bet2";
-        io.emit("make_bet");
-        console.log(`Requesting all players to make their ${Game.round.step} bets!`);
     });
 
     socket.on("next_step", () => {
@@ -87,20 +69,30 @@ io.on("connection", (socket: Socket) => {
                 Game.round.step = "solution";
                 break;
             case "solution":
-                Game.round = { ...initialRound };
+                Game.round = {
+                    step: "question",
+                    question: `New question for round ${Game.iteration + 1}`,
+                    hint1: `Hint 1 for round ${Game.iteration + 1}`,
+                    hint2: `Hint 2 for round ${Game.iteration + 1}`,
+                    solution: `Solution for round ${Game.iteration + 1}`
+                };
                 Game.iteration++;
+                Game.players.forEach(player => {
+                    player.choice = undefined;
+                    player.bet1 = undefined;
+                    player.bet2 = undefined;
+                });
                 break;
         }
         io.emit("game_state_update", { game: Game });
     });
 
-    // player calls
     socket.on("join", (event: JoinEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
         const newPlayer: Player = {
             socketId: socket.id,
             coins: INITIAL_COINS,
             name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
-            color: "red"
+            color: event.color
         };
 
         Game.players.push(newPlayer);
@@ -116,19 +108,8 @@ io.on("connection", (socket: Socket) => {
     });
 
     socket.on("get_player_by_name", (event: GetPlayerByNameEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
-        if (event.name === "") {
-            return callback({ player: null });
-        }
-
         const player = Game.players.find(player => player.name === event.name);
-
-        if (!player) {
-            console.error(`User not found! ${event.name}`);
-            return callback({ player: null });
-        }
-
-        console.log(`Player ${event.name} was found!`);
-        callback({ player: player });
+        callback({ player: player || null });
     });
 
     socket.on("choice", (event: PlayerChoiceEvent) => {
@@ -149,6 +130,20 @@ io.on("connection", (socket: Socket) => {
                 player.bet2 = event.bet.value;
             }
             console.log(`Player ${event.bet.playerName} submitted their ${Game.round.step}: ${event.bet.value}`);
+            io.emit("game_state_update", { game: Game });
+        }
+    });
+
+    socket.on("kick_player", (playerName: string) => {
+        const playerIndex = Game.players.findIndex(p => p.name === playerName);
+        if (playerIndex !== -1) {
+            const player = Game.players[playerIndex];
+            Game.players.splice(playerIndex, 1);
+            const playerSocket = connections.get(player.socketId);
+            if (playerSocket) {
+                playerSocket.disconnect();
+            }
+            console.log(`Player ${playerName} has been kicked from the game.`);
             io.emit("game_state_update", { game: Game });
         }
     });

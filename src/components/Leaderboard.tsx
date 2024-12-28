@@ -1,10 +1,9 @@
 "use client"
 
-import { Player } from "@/app/(app)/monitor-new/page"
+import { Player } from "@/types/Game"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import { motion } from "framer-motion"
-
 
 type LeaderboardProps = {
     collapsed: boolean,
@@ -12,10 +11,11 @@ type LeaderboardProps = {
 }
 
 export default function Leaderboard({ collapsed, players }: LeaderboardProps) {
+    const sortedPlayers = [...players].sort((a, b) => b.coins - a.coins);
 
     return (
-        <div className="space-y-4">
-            {players && players.map((player, index) => (
+        <div className="space-y-4 p-4">
+            {sortedPlayers.map((player, index) => (
                 <motion.div
                     key={player.name}
                     initial={{ opacity: 0, y: 20 }}
@@ -24,28 +24,33 @@ export default function Leaderboard({ collapsed, players }: LeaderboardProps) {
                     className="flex items-center space-x-4"
                 >
                     <Avatar className="w-10 h-10">
-                        <AvatarFallback>{`${player.name.charAt(0)}${player.name.charAt(1)}`}</AvatarFallback>
+                        <AvatarFallback>{player.name.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    {
-                        !collapsed && (
-                            <div className="flex flex-col flex-1">
-                                <div className="flex flex-row items-center space-x-2">
-                                    <span className="flex-grow text-sm font-medium leading-none">{player.name}</span>
-                                    <span className="text-sm font-medium">{`(1337)`}</span>
-                                </div>
-                                <div className="flex-1">
-                                    <Progress
-                                        value={100}
-                                        className="h-2 mt-2"
-                                    />
-                                </div>
+                    {!collapsed && (
+                        <div className="flex-grow">
+                            <div className="flex justify-between items-center">
+                                <span className="font-medium">{player.name}</span>
+                                <span className="text-sm text-gray-500">{player.coins} coins</span>
                             </div>
-                        )
-                    }
+                            <div className="mt-1">
+                                <Progress value={(player.coins / 1000) * 100} className="h-2" />
+                            </div>
+                            <div className="mt-1 text-xs text-gray-500">
+                                {getPlayerStatus(player)}
+                            </div>
+                        </div>
+                    )}
                 </motion.div>
             ))}
         </div>
     )
+}
+
+function getPlayerStatus(player: Player): string {
+    if (player.choice) return "Choice made";
+    if (player.bet2) return "Second bet placed";
+    if (player.bet1) return "First bet placed";
+    return "Waiting for action";
 }
 
 
