@@ -121,9 +121,10 @@ export default function PlayerPage() {
     if (isReconnecting) {
         return (
             <div className={`min-h-screen bg-gradient-to-br ${bgColor} flex items-center justify-center p-4`}>
-                <Card className="w-full max-w-md">
-                    <CardContent className="pt-6">
-                        <p className="text-center text-white">Reconnecting to the game...</p>
+                <Card className="w-full max-w-md bg-white/10 backdrop-blur-md">
+                    <CardContent className="pt-6 flex flex-col items-center justify-center space-y-5">
+                        <h1 className="text-3xl text-center text-white">Game closed</h1>
+                        <Button onClick={() => window.location.reload()}>Reload</Button>
                     </CardContent>
                 </Card>
             </div>
