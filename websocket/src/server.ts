@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import { GameState, Player } from './types/Game';
-import { GameUpdateEvent, GetPlayerByNameEvent, GetPlayerByNameEventResponse, JoinEvent, PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from './types/Events';
+import { GameState, Player, Round } from './types/Game';
+import { GameUpdateEvent, GetPlayerByNameEvent, GetPlayerByNameEventResponse, JoinEvent, PlayerChoiceEvent, PlayerBetEvent, PlayerJoinedEvent, PlayerLeftEvent } from './types/Events';
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,14 +16,16 @@ const io = new Server(httpServer, {
 
 const INITIAL_COINS = 500
 
+const initialRound: Round = {
+    step: "question",
+    question: "How old was Albert Einstein when he received his first Nobel Prize?",
+    hint1: "He was younger than Angela Merkel when she became German Chancellor",
+    hint2: "He was older than 30.",
+    solution: "42"
+}
+
 const Game: GameState = {
-    round: {
-        step: "question",
-        question: "How old was Albert Einstein when he received his first nobel price?",
-        hint1: "He was younger than Angela Merkel when she became German Kanzler",
-        hint2: "He was older than 30.",
-        solution: "42"
-    },
+    round: initialRound,
     players: [],
     iteration: 0
 }
@@ -50,21 +52,50 @@ io.on("connection", (socket: Socket) => {
     });
 
     socket.on("request_choices", () => {
-        Game.players.forEach(player => {
-            const connection = connections.get(player.socketId);
+        Game.round.step = "choices";
+        io.emit("make_choice");
+        console.log("Requesting all players to make their choices!");
+    });
 
-            if (!connection) {
-                console.error(`No connection found for player ${player.name} with ${player.socketId}`);
-                return;
-            }
+    socket.on("request_bets", () => {
+        Game.round.step = Game.round.step === "hint1" ? "bet1" : "bet2";
+        io.emit("make_bet");
+        console.log(`Requesting all players to make their ${Game.round.step} bets!`);
+    });
 
-            connection.emit("make_choice");
-            console.log(`Requesting player ${player.name} to make their choice!`);
-        });
+    socket.on("next_step", () => {
+        switch (Game.round.step) {
+            case "question":
+                Game.round.step = "choices";
+                io.emit("make_choice");
+                break;
+            case "choices":
+                Game.round.step = "hint1";
+                break;
+            case "hint1":
+                Game.round.step = "bet1";
+                io.emit("make_bet");
+                break;
+            case "bet1":
+                Game.round.step = "hint2";
+                break;
+            case "hint2":
+                Game.round.step = "bet2";
+                io.emit("make_bet");
+                break;
+            case "bet2":
+                Game.round.step = "solution";
+                break;
+            case "solution":
+                Game.round = { ...initialRound };
+                Game.iteration++;
+                break;
+        }
+        io.emit("game_state_update", { game: Game });
     });
 
     // player calls
-    socket.on("join", (event: JoinEvent) => {
+    socket.on("join", (event: JoinEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
         const newPlayer: Player = {
             socketId: socket.id,
             coins: INITIAL_COINS,
@@ -80,48 +111,46 @@ io.on("connection", (socket: Socket) => {
         }
 
         console.log(`New player "${newPlayer.name}" joined the game!`);
+        callback({ player: newPlayer });
+        io.emit("game_state_update", { game: Game });
     });
 
-    socket.on("get_player_by_name", (event: GetPlayerByNameEvent, response: (e: GetPlayerByNameEventResponse) => void) => {
+    socket.on("get_player_by_name", (event: GetPlayerByNameEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
         if (event.name === "") {
-            return response({ player: null });
+            return callback({ player: null });
         }
 
         const player = Game.players.find(player => player.name === event.name);
 
         if (!player) {
             console.error(`User not found! ${event.name}`);
-            return response({ player: null });
+            return callback({ player: null });
         }
 
         console.log(`Player ${event.name} was found!`);
-        response({ player: player });
-    });
-
-    socket.on("leave", (event: PlayerLeftEvent) => {
-        if (!monitor) {
-            console.error("No monitor connected!");
-            return;
-        }
-
-        const playerIndex = Game.players.findIndex(player => player.name === event.name);
-        if (playerIndex !== -1) {
-            Game.players.splice(playerIndex, 1);
-            monitor.emit("player_left", event);
-            console.log(`Player ${event.name} left the game!`);
-        } else {
-            console.error(`Player ${event.name} not found in the game!`);
-        }
+        callback({ player: player });
     });
 
     socket.on("choice", (event: PlayerChoiceEvent) => {
-        if (!monitor) {
-            console.error("No monitor connected!");
-            return;
+        const player = Game.players.find(p => p.name === event.choice.playerName);
+        if (player) {
+            player.choice = event.choice.value;
+            console.log(`Player ${event.choice.playerName} submitted their choice: ${event.choice.value}`);
+            io.emit("game_state_update", { game: Game });
         }
+    });
 
-        monitor.emit("player_choice", event);
-        console.log(`Player ${event.choice.playerName} submitted their choice!`);
+    socket.on("bet", (event: PlayerBetEvent) => {
+        const player = Game.players.find(p => p.name === event.bet.playerName);
+        if (player) {
+            if (Game.round.step === "bet1") {
+                player.bet1 = event.bet.value;
+            } else if (Game.round.step === "bet2") {
+                player.bet2 = event.bet.value;
+            }
+            console.log(`Player ${event.bet.playerName} submitted their ${Game.round.step}: ${event.bet.value}`);
+            io.emit("game_state_update", { game: Game });
+        }
     });
 
     socket.on("disconnect", () => {
@@ -129,10 +158,14 @@ io.on("connection", (socket: Socket) => {
         console.log(`Connection removed from the pool: ${socket.id}`);
 
         const player = Game.players.find(player => player.socketId === socket.id);
-        if (player && monitor) {
-            const event: PlayerLeftEvent = { name: player.name };
-            monitor.emit("player_left", event);
+        if (player) {
+            Game.players = Game.players.filter(p => p.socketId !== socket.id);
+            if (monitor) {
+                const event: PlayerLeftEvent = { name: player.name };
+                monitor.emit("player_left", event);
+            }
             console.log(`Player ${player.name} disconnected and left the game!`);
+            io.emit("game_state_update", { game: Game });
         }
 
         if (monitor === socket) {

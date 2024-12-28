@@ -9,6 +9,9 @@ export type Player = {
     name: string
     color: string
     coins: number
+    choice?: string
+    bet1?: number
+    bet2?: number
 }
 
 export type Round = {
@@ -23,3 +26,10 @@ export type Choice = {
     value: string
     playerName: string
 }
+
+export type Bet = {
+    value: number
+    playerName: string
+}
+
+

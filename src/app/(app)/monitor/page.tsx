@@ -1,19 +1,19 @@
 "use client"
 
+import { useEffect, useState, useCallback } from "react"
+import { io, Socket } from "socket.io-client"
 import DebugState from "@/components/DebugState"
 import IterationCounter from "@/components/IterationCounter"
 import RoundDisplay from "@/components/RoundDisplay"
 import Sidebar from "@/components/Sidebar"
-import { GameUpdateEvent, PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from "@/types/Events"
-import { Choice, GameState } from "@/types/Game"
-import { useEffect, useState, useCallback } from "react"
-import { io, Socket } from "socket.io-client"
+import { GameUpdateEvent, PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent, PlayerBetEvent } from "@/types/Events"
+import { GameState } from "@/types/Game"
 
 const initialGameState: GameState = {
     round: {
         step: "question",
-        question: "How old was Albert Einstein when he received his first nobel price?",
-        hint1: "He was younger than Angela Merkel when she became German Kanzler",
+        question: "How old was Albert Einstein when he received his first Nobel Prize?",
+        hint1: "He was younger than Angela Merkel when she became German Chancellor",
         hint2: "He was older than 30.",
         solution: "42"
     },
@@ -22,30 +22,68 @@ const initialGameState: GameState = {
 }
 
 export default function Monitor() {
-    const [socket, setSocket] = useState<Socket | undefined>(undefined)
-    const [gameState, setGameState] = useState(initialGameState)
-    const [playerChoices, setPlayerChoices] = useState<Array<Choice>>([])
+    const [socket, setSocket] = useState<Socket | null>(null)
+    const [gameState, setGameState] = useState<GameState>(initialGameState)
 
-    // websocket calls
-    const requestChoices = useCallback(() => {
-        if (!socket) {
-            throw new Error("No socket exists...")
+    const nextStep = useCallback(() => {
+        if (socket) {
+            socket.emit("next_step")
         }
-        socket.emit("request_choices")
-        console.log("Choices were requested.")
     }, [socket])
 
-    const requestNewRound = useCallback(() => {
-        setGameState(prev => ({ ...prev, round: { ...prev.round, question: "new question" } }))
-    }, [])
-
-    // connect and disconnect on unmount
     useEffect(() => {
         const newSocket = io("http://localhost:3001")
-        console.log("Socket connection established.")
         setSocket(newSocket)
 
-        newSocket.emit("monitor")
+        newSocket.on("connect", () => {
+            console.log("Socket connection established.")
+            newSocket.emit("monitor")
+        })
+
+        newSocket.on("game_state_update", (event: GameUpdateEvent) => {
+            console.log("Received game state update:", event.game)
+            setGameState(event.game)
+        })
+
+        newSocket.on("player_joined", (event: PlayerJoinedEvent) => {
+            console.log(`New player ${event.player.name} joined the game!`)
+            setGameState(prevState => ({
+                ...prevState,
+                players: [...prevState.players, event.player]
+            }))
+        })
+
+        newSocket.on("player_left", (event: PlayerLeftEvent) => {
+            console.log(`Player ${event.name} left the game!`)
+            setGameState(prevState => ({
+                ...prevState,
+                players: prevState.players.filter(player => player.name !== event.name)
+            }))
+        })
+
+        newSocket.on("player_choice", (event: PlayerChoiceEvent) => {
+            console.log(`Player ${event.choice.playerName} made a choice: ${event.choice.value}`)
+            setGameState(prevState => ({
+                ...prevState,
+                players: prevState.players.map(player =>
+                    player.name === event.choice.playerName
+                        ? { ...player, choice: event.choice.value }
+                        : player
+                )
+            }))
+        })
+
+        newSocket.on("player_bet", (event: PlayerBetEvent) => {
+            console.log(`Player ${event.bet.playerName} made a bet: ${event.bet.value}`)
+            setGameState(prevState => ({
+                ...prevState,
+                players: prevState.players.map(player =>
+                    player.name === event.bet.playerName
+                        ? { ...player, [prevState.round.step === "bet1" ? "bet1" : "bet2"]: event.bet.value }
+                        : player
+                )
+            }))
+        })
 
         return () => {
             newSocket.disconnect()
@@ -53,64 +91,19 @@ export default function Monitor() {
         }
     }, [])
 
-    useEffect(() => {
-        if (!socket) return
-
-        const handleGameStateUpdate = (event: GameUpdateEvent) => {
-            console.log("update game state:", event.game)
-            setGameState(event.game)
-        }
-
-        const handlePlayerJoined = (event: PlayerJoinedEvent) => {
-            setGameState((prev) => {
-                const found = prev.players.find(player => player.name === event.player.name)
-                if (!found) {
-                    console.log(`New player ${event.player.name} joined the game!`)
-                    return { ...prev, players: [...prev.players, event.player] }
-                }
-                return prev
-            })
-        }
-
-        const handlePlayerLeft = (event: PlayerLeftEvent) => {
-            setGameState((prev) => {
-                const newPlayers = prev.players.filter(player => player.name !== event.name)
-                if (newPlayers.length !== prev.players.length) {
-                    console.log(`Player ${event.name} left the game!`)
-                    return { ...prev, players: newPlayers }
-                }
-                return prev
-            })
-        }
-
-        const handlePlayerChoice = (event: PlayerChoiceEvent) => {
-        }
-
-        // react to websocket messages
-        socket.on("player_joined", handlePlayerJoined)
-        socket.on("player_left", handlePlayerLeft)
-        socket.on("player_choice", handlePlayerChoice)
-        socket.on("game_state_update", handleGameStateUpdate)
-
-        return () => {
-            socket.off("player_joined", handlePlayerJoined)
-            socket.off("player_left", handlePlayerLeft)
-            socket.off("player_choice", handlePlayerChoice)
-            socket.off("game_state_update", handleGameStateUpdate)
-        }
-    }, [socket])
-
     return (
-        <div>
+        <div className="p-4 flex flex-col h-screen">
             <DebugState state={gameState} title="GameState" />
-            <IterationCounter iteration={gameState.iteration} />
-            <RoundDisplay
-                requestNewRound={requestNewRound}
-                newRound={gameState.round}
-                requestChoices={requestChoices}
-                updateGameState={setGameState}
-            />
-            <Sidebar players={gameState.players} />
+            <div className="flex-grow flex">
+                <div className="flex-grow">
+                    <IterationCounter iteration={gameState.iteration} />
+                    <RoundDisplay
+                        gameState={gameState}
+                        nextStep={nextStep}
+                    />
+                </div>
+                <Sidebar players={gameState.players} />
+            </div>
         </div>
     )
 }

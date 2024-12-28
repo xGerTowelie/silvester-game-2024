@@ -1,199 +1,133 @@
 "use client"
 
-import { GameState, Round } from "@/types/Game"
-import { Dispatch, ReactNode, SetStateAction, useState } from "react"
+import { GameState } from "@/types/Game"
+import { ReactNode } from "react"
 import { Button } from "./ui/button"
 
 type RoundDisplayProps = {
-    newRound: Round
-    requestChoices: () => void
-    requestNewRound: () => void
-    updateGameState: Dispatch<SetStateAction<GameState>>
+    gameState: GameState;
+    nextStep: () => void;
 }
 
-export default function RoundDisplay({ newRound, requestNewRound, requestChoices }: RoundDisplayProps) {
+export default function RoundDisplay({ gameState, nextStep }: RoundDisplayProps) {
+    const { round, players } = gameState;
 
-    const [round, setRound] = useState(newRound)
-
-    const prevStep = () => {
+    const renderContent = () => {
         switch (round.step) {
             case "question":
-                requestNewRound()
-                break
-
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <NextButton next={nextStep}>Start Choices</NextButton>
+                    </>
+                )
             case "choices":
-                setRound((prev) => ({ ...prev, step: "question" }))
-                break
-
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <p className="italic text-muted-foreground py-5">
+                            Waiting for all choices ({players.filter(p => p.choice).length}/{players.length})
+                        </p>
+                        <NextButton next={nextStep}>Show First Hint</NextButton>
+                    </>
+                )
             case "hint1":
-                setRound((prev) => ({ ...prev, step: "choices" }))
-                break
-
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <Hint hint={round.hint1} />
+                        <NextButton next={nextStep}>Start First Bet</NextButton>
+                    </>
+                )
             case "bet1":
-                setRound((prev) => ({ ...prev, step: "hint1" }))
-                break
-
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <Hint hint={round.hint1} />
+                        <p className="italic text-muted-foreground py-5">
+                            Waiting for first bets ({players.filter(p => p.bet1).length}/{players.length})
+                        </p>
+                        <NextButton next={nextStep}>Show Second Hint</NextButton>
+                    </>
+                )
             case "hint2":
-                setRound((prev) => ({ ...prev, step: "bet1" }))
-                break
-
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <Hint hint={round.hint1} />
+                        <Hint hint={round.hint2} />
+                        <NextButton next={nextStep}>Start Second Bet</NextButton>
+                    </>
+                )
+            case "bet2":
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <Hint hint={round.hint1} />
+                        <Hint hint={round.hint2} />
+                        <p className="italic text-muted-foreground py-5">
+                            Waiting for second bets ({players.filter(p => p.bet2).length}/{players.length})
+                        </p>
+                        <NextButton next={nextStep}>Show Solution</NextButton>
+                    </>
+                )
             case "solution":
-                setRound((prev) => ({ ...prev, step: "hint2" }))
-                break
+                return (
+                    <>
+                        <Question question={round.question} />
+                        <Hint hint={round.hint1} />
+                        <Hint hint={round.hint2} />
+                        <p className="font-bold py-5">Solution: {round.solution}</p>
+                        <NextButton next={nextStep}>New Round</NextButton>
+                    </>
+                )
+            default:
+                return <h1>Step not implemented...</h1>
         }
-
     }
 
-    const nextStep = () => {
-        switch (round.step) {
-            case "question":
-                requestChoices()
-                setRound((prev) => ({ ...prev, step: "choices" }))
-                break
-
-            case "choices":
-                setRound((prev) => ({ ...prev, step: "hint1" }))
-                break
-
-            case "hint1":
-                setRound((prev) => ({ ...prev, step: "bet1" }))
-                break
-
-            case "bet1":
-                setRound((prev) => ({ ...prev, step: "hint2" }))
-                break
-
-            case "hint2":
-                setRound((prev) => ({ ...prev, step: "solution" }))
-                break
-
-            case "solution":
-                requestNewRound()
-                setRound((prev) => ({ ...prev, step: "question" }))
-                break
-        }
-
-    }
-
-    switch (round.step) {
-        case "question":
-            return (
-                <RoundWrapper>
-                    <Question question={round.question} />
-                    <PrevButton prev={prevStep}>Skip Question</PrevButton>
-                    <NextButton next={nextStep}>Make Choices</NextButton>
-                </RoundWrapper>
-            )
-
-        case "choices":
-            return (
-                <RoundWrapper>
-                    <Question question={round.question} />
-                    <p className="italic muted py-5">Waiting for all choices (0/6)</p>
-                    <PrevButton prev={prevStep}>Back to Question</PrevButton>
-                    <NextButton next={nextStep}>Show first hint</NextButton>
-                </RoundWrapper>
-            )
-
-        case "hint1":
-            return (
-                <RoundWrapper>
-                    <Question question={round.question} />
-                    <Hint hint={round.hint1} />
-                    <PrevButton prev={prevStep}>Back to Choices</PrevButton>
-                    <NextButton next={nextStep}>Start Bet</NextButton>
-                </RoundWrapper>
-            )
-
-        case "bet1":
-            return (
-                <RoundWrapper>
-                    <Question question={round.question} />
-                    <Hint hint={round.hint1} />
-                    <Hint hint={round.hint2} />
-                    <p className="italic muted py-5">Lets bet!</p>
-                    <PrevButton prev={prevStep}>Back to Hint1</PrevButton>
-                    <NextButton next={nextStep}>Show second hint</NextButton>
-                </RoundWrapper>
-            )
-
-        case "hint2":
-            return (
-                <RoundWrapper>
-                    <Question question={round.question} />
-                    <Hint hint={round.hint1} />
-                    <Hint hint={round.hint2} />
-                    <PrevButton prev={prevStep}>Back to Bet</PrevButton>
-                    <NextButton next={nextStep}>Next Bet</NextButton>
-                </RoundWrapper>
-            )
-
-        case "bet2":
-            return (
-                <RoundWrapper>
-                    <Question question={round.question} />
-                    <Hint hint={round.hint1} />
-                    <Hint hint={round.hint2} />
-                    <p className="italic muted py-5">Lets bet!</p>
-                    <PrevButton prev={prevStep}>Back to Hint1</PrevButton>
-                    <NextButton next={nextStep}>Show second hint</NextButton>
-                </RoundWrapper>
-            )
-
-        default:
-            return (
-                <>
-
-                    <h1>Step not implmeneted...</h1>
-                </>
-            )
-
-
-    }
+    return (
+        <RoundWrapper>
+            {renderContent()}
+        </RoundWrapper>
+    )
 }
 
 function RoundWrapper({ children }: { children: ReactNode }) {
-
     return (
-        <div className="border border-red-300 p-5 space-y-5">
+        <div className="border border-primary p-5 space-y-5 rounded-lg">
             {children}
         </div>
     )
 }
+
 function Question({ question }: { question: string }) {
     return (
         <div>
-            <h1>Frage:</h1>
+            <h2 className="text-lg font-semibold">Question:</h2>
             <p>{question}</p>
         </div>
     )
 }
 
-type NextButtonProps = {
+type ButtonProps = {
     next: () => void
     children: string
 }
-function NextButton({ next, children }: NextButtonProps) {
+
+function NextButton({ next, children }: ButtonProps) {
     return (
         <Button onClick={next} variant="default">{children}</Button>
-    )
-}
-
-type PrevButtonProps = {
-    prev: () => void
-    children: string
-}
-function PrevButton({ prev, children }: PrevButtonProps) {
-    return (
-        <Button onClick={prev} variant="destructive">{children}</Button>
     )
 }
 
 function Hint({ hint }: { hint: string }) {
     return (
         <div>
-            <h1>Hinweis:</h1>
+            <h3 className="text-md font-semibold">Hint:</h3>
             <p>{hint}</p>
         </div>
     )
 }
+
+

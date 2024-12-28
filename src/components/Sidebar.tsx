@@ -1,6 +1,6 @@
 "use client"
 
-import { Settings } from "lucide-react"
+import { Settings } from 'lucide-react'
 import { useState } from "react"
 import Leaderboard from "./Leaderboard"
 import { Player } from "@/types/Game"
@@ -19,13 +19,14 @@ export default function Sidebar({ players }: SidebarProps) {
         <div
             onMouseLeave={handleOnMouseLeave}
             onMouseEnter={handleOnMouseEnter}
-            className="flex flex-col p-3 items-center space-y-5 bg-white fixed right-0 border-2 rounded-l-xl">
+            className="flex flex-col p-3 items-center space-y-5 bg-white border-l-2 min-h-full"
+        >
             <Settings />
             <div className="flex flex-col">
                 <Leaderboard players={players} collapsed={collapsed} />
             </div>
         </div>
     )
-
 }
+
 

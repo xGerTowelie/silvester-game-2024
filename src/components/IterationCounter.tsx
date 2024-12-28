@@ -6,7 +6,8 @@ type IterationCounterProps = {
 
 export default function IterationCounter({ iteration }: IterationCounterProps) {
     return (
-        <h1>*Iteration: {iteration}</h1>
+        <h1 className="text-xl font-bold mb-4">Round: {iteration + 1}</h1>
     )
 }
+
 
