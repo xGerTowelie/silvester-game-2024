@@ -111,8 +111,8 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                         <div className="space-y-4">
                             {players.map((player) => (
                                 <div key={player.name} className="flex items-center gap-4 bg-white/5 p-3 rounded-lg">
-                                    <Avatar className="w-10 h-10" style={{ backgroundColor: player.color }}>
-                                        <AvatarFallback className="text-white text-lg">
+                                    <Avatar className="w-10 h-10 shadow shadow-black/40">
+                                        <AvatarFallback className="font-semibold text-white text-lg" style={{ background: player.color }}>
                                             {player.name.charAt(0).toUpperCase()}
                                         </AvatarFallback>
                                     </Avatar>

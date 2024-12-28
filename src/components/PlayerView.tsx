@@ -5,7 +5,7 @@ import { Socket } from "socket.io-client"
 import { Player } from "@/types/Game"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { toast } from "@/hooks/use-toast"
 
@@ -31,30 +31,29 @@ export default function PlayerView({ player, gameState, socket }: PlayerViewProp
     }
 
     return (
-        <Card className="w-full max-w-md mx-auto bg-white/10 backdrop-blur-md border-none text-white">
+        <Card className="w-full max-w-screen-md mx-auto bg-white/10 backdrop-blur-md border-none text-white p-5 space-y-5">
             <CardHeader className="flex flex-row items-center gap-4">
-                <Avatar className="w-16 h-16" style={{ backgroundColor: player.color }}>
-                    <AvatarFallback className="text-white">
+                <Avatar className="w-16 h-16 shadow shadow-black/40 opacity-60">
+                    <AvatarFallback className="text-white font-semibold shadow-black shadow-2xl " style={{ background: player.color }}>
                         {player.name.charAt(0).toUpperCase()}
                     </AvatarFallback>
                 </Avatar>
                 <div>
                     <CardTitle className="text-2xl">{player.name}</CardTitle>
-                    <CardDescription className="text-xl text-white/80">Coins: {player.coins}</CardDescription>
                 </div>
             </CardHeader>
             <CardContent>
                 {gameState === "choices" && (
-                    <form onSubmit={submitChoice} className="space-y-4">
+                    <form onSubmit={submitChoice} className="space-y-5">
                         <Input
                             type="text"
                             placeholder="Enter your answer"
                             value={choice}
                             onChange={(e) => setChoice(e.target.value)}
                             required
-                            className="bg-white/20 text-white placeholder-white/50"
+                            className="bg-white/20 text-2xl text-white placeholder-white/50"
                         />
-                        <Button type="submit" className="w-full bg-white text-black hover:bg-white/90">Submit Answer</Button>
+                        <Button type="submit" className="w-full bg-white text-black font-semibold hover:bg-white/90">Submit Answer</Button>
                     </form>
                 )}
                 {gameState !== "choices" && (

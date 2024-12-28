@@ -12,6 +12,7 @@ import {
     Sheet,
     SheetContent,
     SheetDescription,
+    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
@@ -186,35 +187,31 @@ export default function PlayerPage() {
             <nav className="flex justify-end mb-4">
                 <Sheet>
                     <SheetTrigger asChild>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="secondary" size="icon">
                             <Settings className="h-6 w-6" />
                         </Button>
                     </SheetTrigger>
                     <SheetContent>
-                        <SheetHeader>
-                            <SheetTitle>Settings</SheetTitle>
-                            <SheetDescription>
-                                Game settings and leaderboard
-                            </SheetDescription>
-                        </SheetHeader>
-                        <div className="py-4 space-y-4">
-                            <Button onClick={handleReset} variant="destructive" className="w-full">
-                                Reset Game
-                            </Button>
-                            <div className="space-y-2">
-                                <h3 className="text-lg font-semibold">Leaderboard</h3>
-                                {gameState && gameState.players.sort((a, b) => b.coins - a.coins).map((p, index) => (
-                                    <div key={p.name} className="flex items-center gap-2">
-                                        <Avatar className="w-8 h-8" style={{ backgroundColor: p.color }}>
-                                            <AvatarFallback className="text-white">
-                                                {p.name.charAt(0).toUpperCase()}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                        <span>{p.name}</span>
-                                        <span className="ml-auto">{p.coins} coins</span>
-                                        {index === 0 && <Trophy className="text-yellow-400 h-4 w-4" />}
-                                    </div>
-                                ))}
+                        <div className="flex flex-col h-full">
+                            <div className="py-4 flex-1 space-y-4">
+                                <div className="space-y-3 flex-grow">
+                                    <h3 className="text-lg font-semibold">Lobby</h3>
+                                    {gameState && gameState.players.map((p, index) => (
+                                        <div key={p.name} className="flex items-center gap-2">
+                                            <Avatar className="w-8 h-8 shadow shadow-black/40">
+                                                <AvatarFallback className="text-white font-semibold" style={{ background: p.color }}>
+                                                    {p.name.charAt(0).toUpperCase()}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <span className="text-lg font-normal">{p.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div>
+                                <Button onClick={handleReset} variant="destructive" className="w-full">
+                                    Leave Game
+                                </Button>
                             </div>
                         </div>
                     </SheetContent>

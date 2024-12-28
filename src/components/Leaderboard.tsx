@@ -24,7 +24,7 @@ export default function Leaderboard({ collapsed, players }: LeaderboardProps) {
                     className="flex items-center space-x-4"
                 >
                     <Avatar className="w-10 h-10">
-                        <AvatarFallback>{player.name.charAt(0).toUpperCase()}</AvatarFallback>
+                        <AvatarFallback className="font-semibold" style={{ background: player.color }}>x{player.name.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
                     {!collapsed && (
                         <div className="flex-grow">
