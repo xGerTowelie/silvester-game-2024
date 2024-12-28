@@ -1,5 +1,6 @@
 "use client"
 
+import DebugState from "@/components/DebugState"
 import IterationCounter from "@/components/IterationCounter"
 import RoundDisplay from "@/components/RoundDisplay"
 import Sidebar from "@/components/Sidebar"
@@ -57,7 +58,7 @@ export default function Monitor() {
         if (!socket) return
 
         const handlePlayerJoined = (event: PlayerJoinedEvent) => {
-            gameState.players.push(event.player)
+            setGameState((prev) => ({ ...prev, players: [...prev.players, event.player] }))
             console.log(`New player ${event.player} joined the game!`)
         }
 
@@ -90,11 +91,12 @@ export default function Monitor() {
         socket.on("player_joined", handlePlayerJoined)
         socket.on("player_left", handlePlayerLeft)
         socket.on("player_choice", handlePlayerChoice)
-    }, [socket, gameState, playerChoices])
+    }, [socket, gameState.players, playerChoices])
 
 
     return (
         <div>
+            <DebugState state={gameState} title="GameState" />
             <IterationCounter iteration={gameState.iteration} />
             <RoundDisplay
                 requestNewRound={requestNewRound}

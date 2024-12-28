@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import { GameState } from './types/Game';
-import { PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from './types/Events';
+import { GameState, Player } from './types/Game';
+import { GetPlayerByNameEvent, GetPlayerByNameEventResponse, JoinEvent, PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from './types/Events';
 
 const PORT = process.env.PORT || 3001;
 
@@ -50,10 +50,8 @@ io.on("connection", (socket: Socket) => {
 
     // monitor calls
     socket.on("monitor", () => {
-        if (!monitor) {
-            monitor = socket
-            console.log("Monitor set!")
-        }
+        monitor = socket
+        console.log("Monitor set/updated!")
     })
 
     socket.on("request_choices", () => {
@@ -70,22 +68,40 @@ io.on("connection", (socket: Socket) => {
     })
 
     // player calls
-    socket.on("join", (data: PlayerJoinedEvent) => {
-        if (!monitor) {
-            throw new Error("No monitor connected!")
-        }
-
-        const newPlayer = {
-            ...data.player,
+    socket.on("join", (event: JoinEvent) => {
+        const newPlayer: Player = {
             socketId: socket.id,
             coins: INITIAL_COINS,
+            name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
+            color: "red"
         }
 
         Game.players.push(newPlayer)
 
-        monitor.emit("player_joined", { player: newPlayer } as PlayerJoinedEvent)
-        console.log(`New player ${newPlayer.name} joined the game!`)
+        if (monitor) {
+            const event: PlayerJoinedEvent = { player: newPlayer }
+            monitor.emit("player_joined", event)
+        }
+
+        console.log(`New player "${newPlayer.name}" joined the game!`)
     })
+
+    socket.on("get_player_by_name", (event: GetPlayerByNameEvent, response: (e: GetPlayerByNameEventResponse) => void) => {
+
+        if (event.name == "") {
+            return response({ player: null })
+        }
+
+        const player = Game.players.find(player => player.name === event.name)
+
+        if (!player) {
+            throw new Error(`User not found! ${event.name}`)
+        }
+
+        console.log(`Player ${event.name} was found!`)
+        response({ player: player })
+    })
+
 
     socket.on("leave", (event: PlayerLeftEvent) => {
         if (!monitor) {
