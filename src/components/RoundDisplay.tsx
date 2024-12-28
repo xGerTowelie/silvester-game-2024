@@ -1,16 +1,20 @@
 "use client"
 
-import { GameState } from "@/types/Game"
+import { GameState, Player } from "@/types/Game"
 import { ReactNode } from "react"
 import { Button } from "./ui/button"
 
 type RoundDisplayProps = {
     gameState: GameState;
     nextStep: () => void;
+    nextRound: () => void;
 }
 
-export default function RoundDisplay({ gameState, nextStep }: RoundDisplayProps) {
+export default function RoundDisplay({ gameState, nextStep, nextRound }: RoundDisplayProps) {
     const { round, players } = gameState;
+
+    const allChoicesMade = round.step === "choices" && players.every(player => player.choice);
+    const remainingPlayers = players.filter(player => !player.choice);
 
     const renderContent = () => {
         switch (round.step) {
@@ -28,7 +32,17 @@ export default function RoundDisplay({ gameState, nextStep }: RoundDisplayProps)
                         <p className="italic text-muted-foreground py-5">
                             Waiting for all choices ({players.filter(p => p.choice).length}/{players.length})
                         </p>
-                        <NextButton next={nextStep}>Show First Hint</NextButton>
+                        <NextButton next={nextStep} disabled={!allChoicesMade}>Show First Hint</NextButton>
+                        {remainingPlayers.length > 0 && (
+                            <div className="mt-4">
+                                <h3 className="font-semibold">Waiting for choices from:</h3>
+                                <ul className="list-disc list-inside">
+                                    {remainingPlayers.map(player => (
+                                        <li key={player.name}>{player.name}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </>
                 )
             case "hint1":
@@ -78,7 +92,7 @@ export default function RoundDisplay({ gameState, nextStep }: RoundDisplayProps)
                         <Hint hint={round.hint1} />
                         <Hint hint={round.hint2} />
                         <p className="font-bold py-5">Solution: {round.solution}</p>
-                        <NextButton next={nextStep}>New Round</NextButton>
+                        <NextButton next={nextRound}>New Round</NextButton>
                     </>
                 )
             default:
@@ -113,11 +127,12 @@ function Question({ question }: { question: string }) {
 type ButtonProps = {
     next: () => void
     children: string
+    disabled?: boolean
 }
 
-function NextButton({ next, children }: ButtonProps) {
+function NextButton({ next, children, disabled = false }: ButtonProps) {
     return (
-        <Button onClick={next} variant="default">{children}</Button>
+        <Button onClick={next} variant="default" disabled={disabled}>{children}</Button>
     )
 }
 

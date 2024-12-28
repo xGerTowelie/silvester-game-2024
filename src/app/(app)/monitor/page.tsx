@@ -8,15 +8,10 @@ import RoundDisplay from "@/components/RoundDisplay"
 import Sidebar from "@/components/Sidebar"
 import { GameUpdateEvent, PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent, PlayerBetEvent } from "@/types/Events"
 import { GameState } from "@/types/Game"
+import { rounds } from "@/types/rounds"
 
 const initialGameState: GameState = {
-    round: {
-        step: "question",
-        question: "How old was Albert Einstein when he received his first Nobel Prize?",
-        hint1: "He was younger than Angela Merkel when she became German Chancellor",
-        hint2: "He was older than 30.",
-        solution: "42"
-    },
+    round: rounds[0],
     players: [],
     iteration: 0
 }
@@ -30,6 +25,17 @@ export default function Monitor() {
             socket.emit("next_step")
         }
     }, [socket])
+
+    const nextRound = useCallback(() => {
+        setGameState(prevState => {
+            const nextIteration = (prevState.iteration + 1) % rounds.length
+            return {
+                ...prevState,
+                round: rounds[nextIteration],
+                iteration: nextIteration
+            }
+        })
+    }, [])
 
     useEffect(() => {
         const newSocket = io("http://localhost:3001")
@@ -92,18 +98,21 @@ export default function Monitor() {
     }, [])
 
     return (
-        <div className="p-4 flex flex-col h-screen">
-            <DebugState state={gameState} title="GameState" />
-            <div className="flex-grow flex">
-                <div className="flex-grow">
+        <div className="flex h-screen overflow-hidden">
+            <div className="flex-grow flex flex-col overflow-auto pr-16">
+                <div className="p-4">
+                    <DebugState state={gameState} title="GameState" />
                     <IterationCounter iteration={gameState.iteration} />
+                </div>
+                <div className="flex-grow p-4 overflow-auto">
                     <RoundDisplay
                         gameState={gameState}
                         nextStep={nextStep}
+                        nextRound={nextRound}
                     />
                 </div>
-                <Sidebar players={gameState.players} />
             </div>
+            <Sidebar players={gameState.players} />
         </div>
     )
 }
