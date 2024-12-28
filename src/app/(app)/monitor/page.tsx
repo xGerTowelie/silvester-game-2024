@@ -6,7 +6,7 @@ import RoundDisplay from "@/components/RoundDisplay"
 import Sidebar from "@/components/Sidebar"
 import { PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from "@/types/Events"
 import { Choice, GameState } from "@/types/Game"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { io, Socket } from "socket.io-client"
 
 const initialGameState: GameState = {
@@ -27,18 +27,17 @@ export default function Monitor() {
     const [playerChoices, setPlayerChoices] = useState<Array<Choice>>([])
 
     // websocket calls
-    const requestChoices = () => {
+    const requestChoices = useCallback(() => {
         if (!socket) {
             throw new Error("No socket exists...")
         }
         socket.emit("request_choices")
         console.log("Choices were requested.")
-    }
+    }, [socket])
 
-
-    const requestNewRound = () => {
+    const requestNewRound = useCallback(() => {
         setGameState(prev => ({ ...prev, round: { ...prev.round, question: "new question" } }))
-    }
+    }, [])
 
     // connect and disconnect on unmount
     useEffect(() => {
@@ -58,45 +57,51 @@ export default function Monitor() {
         if (!socket) return
 
         const handlePlayerJoined = (event: PlayerJoinedEvent) => {
-            const found = gameState.players.find(player => player.name === event.player.name)
-            console.log(event.player.name, gameState.players)
-            if (!found) {
-                setGameState((prev) => ({ ...prev, players: [...prev.players, event.player] }))
-                console.log(`New player ${event.player} joined the game!`)
-            }
+            setGameState((prev) => {
+                const found = prev.players.find(player => player.name === event.player.name)
+                if (!found) {
+                    console.log(`New player ${event.player.name} joined the game!`)
+                    return { ...prev, players: [...prev.players, event.player] }
+                }
+                return prev
+            })
         }
 
         const handlePlayerLeft = (event: PlayerLeftEvent) => {
-            const found = gameState.players.findIndex(player => player.name === event.name)
-
-            if (found) {
-                gameState.players.slice(found)
-                console.log(`Player ${event.name} left the game!`)
-            }
+            setGameState((prev) => {
+                const newPlayers = prev.players.filter(player => player.name !== event.name)
+                if (newPlayers.length !== prev.players.length) {
+                    console.log(`Player ${event.name} left the game!`)
+                    return { ...prev, players: newPlayers }
+                }
+                return prev
+            })
         }
 
         const handlePlayerChoice = (event: PlayerChoiceEvent) => {
-            const found = playerChoices.findIndex(choice => choice.playerName === event.choice.playerName)
-            const newChoices = playerChoices
-
-            console.log(`Player ${event.choice.playerName} submitted his choice!`)
-
-            if (found) {
-                newChoices[found] = event.choice
-            } else {
-                newChoices.push(event.choice)
-            }
-
-            setPlayerChoices(newChoices)
-            console.log("Choices were updated.")
+            setPlayerChoices((prev) => {
+                const index = prev.findIndex(choice => choice.playerName === event.choice.playerName)
+                if (index !== -1) {
+                    console.log(`Player ${event.choice.playerName} updated their choice!`)
+                    return prev.map((choice, i) => i === index ? event.choice : choice)
+                } else {
+                    console.log(`Player ${event.choice.playerName} submitted their choice!`)
+                    return [...prev, event.choice]
+                }
+            })
         }
 
         // react to websocket messages
         socket.on("player_joined", handlePlayerJoined)
         socket.on("player_left", handlePlayerLeft)
         socket.on("player_choice", handlePlayerChoice)
-    }, [socket, gameState, gameState.players, playerChoices])
 
+        return () => {
+            socket.off("player_joined", handlePlayerJoined)
+            socket.off("player_left", handlePlayerLeft)
+            socket.off("player_choice", handlePlayerChoice)
+        }
+    }, [socket])
 
     return (
         <div>
@@ -112,3 +117,5 @@ export default function Monitor() {
         </div>
     )
 }
+
+
