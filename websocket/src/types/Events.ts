@@ -1,4 +1,4 @@
-import { Choice, Player } from "./Game"
+import { Choice, GameState, Player } from "./Game"
 
 export type PlayerLeftEvent = {
     name: string
@@ -9,6 +9,13 @@ export type GetPlayerByNameEvent = {
 
 export type GetPlayerByNameEventResponse = {
     player: Player | null
+}
+export type MonitorSetEventResponse = {
+    game: GameState
+}
+
+export type GameUpdateEvent = {
+    game: GameState
 }
 
 export type JoinEvent = {

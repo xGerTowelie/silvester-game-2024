@@ -4,7 +4,7 @@ import DebugState from "@/components/DebugState"
 import IterationCounter from "@/components/IterationCounter"
 import RoundDisplay from "@/components/RoundDisplay"
 import Sidebar from "@/components/Sidebar"
-import { PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from "@/types/Events"
+import { GameUpdateEvent, PlayerChoiceEvent, PlayerJoinedEvent, PlayerLeftEvent } from "@/types/Events"
 import { Choice, GameState } from "@/types/Game"
 import { useEffect, useState, useCallback } from "react"
 import { io, Socket } from "socket.io-client"
@@ -56,6 +56,11 @@ export default function Monitor() {
     useEffect(() => {
         if (!socket) return
 
+        const handleGameStateUpdate = (event: GameUpdateEvent) => {
+            console.log("update game state:", event.game)
+            setGameState(event.game)
+        }
+
         const handlePlayerJoined = (event: PlayerJoinedEvent) => {
             setGameState((prev) => {
                 const found = prev.players.find(player => player.name === event.player.name)
@@ -79,27 +84,19 @@ export default function Monitor() {
         }
 
         const handlePlayerChoice = (event: PlayerChoiceEvent) => {
-            setPlayerChoices((prev) => {
-                const index = prev.findIndex(choice => choice.playerName === event.choice.playerName)
-                if (index !== -1) {
-                    console.log(`Player ${event.choice.playerName} updated their choice!`)
-                    return prev.map((choice, i) => i === index ? event.choice : choice)
-                } else {
-                    console.log(`Player ${event.choice.playerName} submitted their choice!`)
-                    return [...prev, event.choice]
-                }
-            })
         }
 
         // react to websocket messages
         socket.on("player_joined", handlePlayerJoined)
         socket.on("player_left", handlePlayerLeft)
         socket.on("player_choice", handlePlayerChoice)
+        socket.on("game_state_update", handleGameStateUpdate)
 
         return () => {
             socket.off("player_joined", handlePlayerJoined)
             socket.off("player_left", handlePlayerLeft)
             socket.off("player_choice", handlePlayerChoice)
+            socket.off("game_state_update", handleGameStateUpdate)
         }
     }, [socket])
 

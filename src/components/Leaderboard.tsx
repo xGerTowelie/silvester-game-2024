@@ -24,7 +24,7 @@ export default function Leaderboard({ collapsed, players }: LeaderboardProps) {
                     className="flex items-center space-x-4"
                 >
                     <Avatar className="w-10 h-10">
-                        <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{`${player.name.charAt(0)}${player.name.charAt(1)}`}</AvatarFallback>
                     </Avatar>
                     {
                         !collapsed && (
