@@ -1,35 +1,23 @@
-export type GameState = {
-    iteration: number
-    players: Array<Player>
-    round: Round
-}
-
 export type Player = {
-    socketId: string
-    name: string
-    color: string
-    coins: number
-    choice?: string
-    bet1?: number
-    bet2?: number
+    id: string;
+    name: string;
+    color: string;
+    choice?: string;
+    socketId: string;
 }
 
 export type Round = {
-    step: "question" | "choices" | "hint1" | "bet1" | "hint2" | "bet2" | "solution"
-    question: string
-    hint1: string
-    hint2: string
-    solution: string
+    step: "question" | "choices" | "hint1" | "hint2" | "solution";
+    number: number;
+    question: string;
+    hint1: string;
+    hint2: string;
+    solution: string;
 }
 
-export type Choice = {
-    value: string
-    playerName: string
+export type GameState = {
+    iteration: number;
+    players: Array<Player>;
+    round: Round;
 }
-
-export type Bet = {
-    value: number
-    playerName: string
-}
-
 

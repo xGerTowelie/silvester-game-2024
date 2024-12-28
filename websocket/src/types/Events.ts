@@ -1,57 +1,39 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-import { Bet, Choice, GameState, Player } from "./types"
+import { Choice, GameState, Player } from "./Game"
 
 export type PlayerLeftEvent = {
-    name: string
+    name: string;
 }
 
 export type GetPlayerByNameEvent = {
-    name: string
+    name: string;
 }
 
 export type GetPlayerByNameEventResponse = {
-    player: Player | null
+    player: Player | null;
 }
 
 export type MonitorSetEventResponse = {
-    game: GameState
+    game: GameState;
 }
 
 export type GameUpdateEvent = {
-    game: GameState
+    game: GameState;
 }
 
 export type JoinEvent = {
-    name: string
-    color: string
+    name: string;
+    color: string;
 }
 
 export type JoinEventResponse = {
-    player: Player
+    player: Player;
 }
 
 export type PlayerJoinedEvent = {
-    player: Player
+    player: Player;
 }
 
 export type PlayerChoiceEvent = {
-    choice: Choice
+    choice: Choice;
 }
-
-export type PlayerBetEvent = {
-    bet: Bet
-}
-
-export type RequestChoicesEvent = {
-    // This event doesn't need any additional data
-}
-
-export type RequestBetsEvent = {
-    round: "bet1" | "bet2"
-}
-
-export type NextStepEvent = {
-    // This event doesn't need any additional data
-}
-
 
