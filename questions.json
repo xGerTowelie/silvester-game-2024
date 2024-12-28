@@ -1,0 +1,586 @@
+{
+"questions": [
+  {
+    "question": "What is the area of Russia, the largest country in the world, in square kilometers?",
+    "answer": "17,098,242 km²",
+    "source": "https://en.wikipedia.org/wiki/Russia",
+    "id": 0
+  },
+  {
+    "question": "What is the population of China as of 2023?",
+    "answer": "1,428,000,000",
+    "source": "https://www.worldometers.info/world-population/china-population/",
+    "id": 1
+  },
+  {
+    "question": "How many kilometers is the Great Wall of China in length?",
+    "answer": "21,196 km",
+    "source": "https://en.wikipedia.org/wiki/Great_Wall_of_China",
+    "id": 2
+  },
+  {
+    "question": "In what year did Neil Armstrong first walk on the Moon?",
+    "answer": "1969",
+    "source": "https://www.nasa.gov/",
+    "id": 3
+  },
+  {
+    "question": "How old was Albert Einstein when he published his theory of special relativity?",
+    "answer": "26 years",
+    "source": "https://www.britannica.com/biography/Albert-Einstein",
+    "id": 4
+  },
+  {
+    "question": "What is the height of Mount Everest, the tallest mountain in the world, in meters?",
+    "answer": "8,849 m",
+    "source": "https://en.wikipedia.org/wiki/Mount_Everest",
+    "id": 5
+  },
+  {
+    "question": "How many kilometers is the Earth's equatorial circumference?",
+    "answer": "40,075 km",
+    "source": "https://en.wikipedia.org/wiki/Earth",
+    "id": 6
+  },
+  {
+    "question": "What is the age of the Universe estimated to be, in billions of years?",
+    "answer": "13.8 billion years",
+    "source": "https://www.nasa.gov/",
+    "id": 7
+  },
+  {
+    "question": "How many years did the Hundred Years' War actually last?",
+    "answer": "116 years",
+    "source": "https://en.wikipedia.org/wiki/Hundred_Years%27_War",
+    "id": 8
+  },
+  {
+    "question": "How many meters tall is the Eiffel Tower in Paris?",
+    "answer": "330 m",
+    "source": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+    "id": 9
+  },
+  {
+    "question": "What is the population of the United States as of 2023?",
+    "answer": "334,000,000",
+    "source": "https://www.census.gov/",
+    "id": 10
+  },
+  {
+    "question": "How many kilometers is the distance from Earth to the Moon?",
+    "answer": "384,400 km",
+    "source": "https://en.wikipedia.org/wiki/Moon",
+    "id": 11
+  },
+  {
+    "question": "What is the speed of light in a vacuum, in kilometers per second?",
+    "answer": "299,792 km/s",
+    "source": "https://en.wikipedia.org/wiki/Speed_of_light",
+    "id": 12
+  },
+  {
+    "question": "How many years did the Roman Empire last?",
+    "answer": "1,480 years",
+    "source": "https://en.wikipedia.org/wiki/Roman_Empire",
+    "id": 13
+  },
+  {
+    "question": "What is the population of India as of 2023?",
+    "answer": "1,417,000,000",
+    "source": "https://www.worldometers.info/world-population/india-population/",
+    "id": 14
+  },
+  {
+    "question": "How many meters is the Burj Khalifa, the tallest building in the world?",
+    "answer": "828 m",
+    "source": "https://en.wikipedia.org/wiki/Burj_Khalifa",
+    "id": 15
+  },
+  {
+    "question": "What year did World War II end?",
+    "answer": "1945",
+    "source": "https://en.wikipedia.org/wiki/World_War_II",
+    "id": 16
+  },
+  {
+    "question": "How old was Mozart when he composed his first symphony?",
+    "answer": "8 years",
+    "source": "https://www.britannica.com/biography/Wolfgang-Amadeus-Mozart",
+    "id": 17
+  },
+  {
+    "question": "How many seconds are there in a year?",
+    "answer": "31,536,000 seconds",
+    "source": "https://en.wikipedia.org/wiki/Year",
+    "id": 18
+  },
+  {
+    "question": "How many kilometers is the length of the Amazon River?",
+    "answer": "6,992 km",
+    "source": "https://en.wikipedia.org/wiki/Amazon_River",
+    "id": 19
+  },
+  {
+    "question": "What is the number of steps in the stairs of the Empire State Building?",
+    "answer": "1,576 steps",
+    "source": "https://www.esbnyc.com/",
+    "id": 20
+  },
+  {
+    "question": "What is the height of the Statue of Liberty, including its pedestal, in meters?",
+    "answer": "93 m",
+    "source": "https://en.wikipedia.org/wiki/Statue_of_Liberty",
+    "id": 21
+  },
+  {
+    "question": "How many days are there in a leap year?",
+    "answer": "366 days",
+    "source": "https://en.wikipedia.org/wiki/Leap_year",
+    "id": 22
+  },
+  {
+    "question": "How many hours are there in a week?",
+    "answer": "168 hours",
+    "source": "https://en.wikipedia.org/wiki/Week",
+    "id": 23
+  },
+  {
+    "question": "What is the depth of the Mariana Trench, the deepest oceanic trench, in meters?",
+    "answer": "10,984 m",
+    "source": "https://en.wikipedia.org/wiki/Mariana_Trench",
+    "id": 24
+  },
+  {
+    "question": "What is the age of the oldest verified person in history?",
+    "answer": "122 years",
+    "source": "https://en.wikipedia.org/wiki/Jeanne_Calment",
+    "id": 25
+  },
+  {
+    "question": "What is the distance from Earth to the Sun in kilometers?",
+    "answer": "149,597,870 km",
+    "source": "https://en.wikipedia.org/wiki/Astronomical_unit",
+    "id": 26
+  },
+  {
+    "question": "How many kilometers is the Trans-Siberian Railway in length?",
+    "answer": "9,289 km",
+    "source": "https://en.wikipedia.org/wiki/Trans-Siberian_Railway",
+    "id": 27
+  },
+  {
+    "question": "What is the population of Brazil as of 2023?",
+    "answer": "216,000,000",
+    "source": "https://www.worldometers.info/world-population/brazil-population/",
+    "id": 28
+  },
+  {
+    "question": "In what year did the Titanic sink?",
+    "answer": "1912",
+    "source": "https://en.wikipedia.org/wiki/RMS_Titanic",
+    "id": 29
+  },
+  {
+    "question": "How many people visited the Eiffel Tower in 2022?",
+    "answer": "6,000,000",
+    "source": "https://www.toureiffel.paris/en",
+    "id": 30
+  },
+  {
+    "question": "What is the length of the Panama Canal in kilometers?",
+    "answer": "82 km",
+    "source": "https://en.wikipedia.org/wiki/Panama_Canal",
+    "id": 31
+  },
+  {
+    "question": "What is the height of the tallest tree in the world, Hyperion, in meters?",
+    "answer": "115.92 m",
+    "source": "https://en.wikipedia.org/wiki/Hyperion_(tree)",
+    "id": 32
+  },
+  {
+    "question": "How many days did Apollo 11's mission last?",
+    "answer": "8 days",
+    "source": "https://www.nasa.gov/",
+    "id": 33
+  },
+  {
+    "question": "What is the average lifespan of a lion in the wild, in years?",
+    "answer": "10-14 years",
+    "source": "https://en.wikipedia.org/wiki/Lion",
+    "id": 34
+  },
+  {
+    "question": "How many countries are there in the world?",
+    "answer": "195 countries",
+    "source": "https://www.un.org/en/",
+    "id": 35
+  },
+  {
+    "question": "What is the distance of the Tour de France cycling race, in kilometers?",
+    "answer": "3,500 km",
+    "source": "https://www.letour.fr/",
+    "id": 36
+  },
+  {
+    "question": "What is the age of the oldest rock on Earth, in billions of years?",
+    "answer": "4.03 billion years",
+    "source": "https://en.wikipedia.org/wiki/Acasta_Gneiss",
+    "id": 37
+  },
+  {
+    "question": "How many years has Queen Elizabeth II reigned, the longest of any British monarch?",
+    "answer": "70 years",
+    "source": "https://en.wikipedia.org/wiki/Elizabeth_II",
+    "id": 38
+  },
+  {
+    "question": "How many languages are spoken in the world?",
+    "answer": "7,139 languages",
+    "source": "https://www.ethnologue.com/",
+    "id": 39
+  },
+  {
+    "question": "What is the average depth of the world's oceans, in meters?",
+    "answer": "3,688 m",
+    "source": "https://en.wikipedia.org/wiki/Ocean",
+    "id": 40
+  },
+  {
+    "question": "How many kilometers is the circumference of Jupiter?",
+    "answer": "439,264 km",
+    "source": "https://solarsystem.nasa.gov/",
+    "id": 41
+  },
+  {
+    "question": "What year did the Berlin Wall fall?",
+    "answer": "1989",
+    "source": "https://en.wikipedia.org/wiki/Berlin_Wall",
+    "id": 42
+  },
+  {
+    "question": "How many bones are in the adult human body?",
+    "answer": "206 bones",
+    "source": "https://en.wikipedia.org/wiki/Human_skeleton",
+    "id": 43
+  },
+  {
+    "question": "What is the diameter of Earth in kilometers?",
+    "answer": "12,742 km",
+    "source": "https://en.wikipedia.org/wiki/Earth",
+    "id": 44
+  },
+  {
+    "question": "How many meters is the tallest waterfall in the world, Angel Falls?",
+    "answer": "979 m",
+    "source": "https://en.wikipedia.org/wiki/Angel_Falls",
+    "id": 45
+  },
+  {
+    "question": "How many seconds does it take for light to travel from the Sun to Earth?",
+    "answer": "499 seconds",
+    "source": "https://www.nasa.gov/",
+    "id": 46
+  },
+  {
+    "question": "What year did the Wright brothers make their first powered flight?",
+    "answer": "1903",
+    "source": "https://en.wikipedia.org/wiki/Wright_brothers",
+    "id": 47
+  },
+  {
+    "question": "What is the total length of the Nile River in kilometers?",
+    "answer": "6,650 km",
+    "source": "https://en.wikipedia.org/wiki/Nile",
+    "id": 48
+  },
+  {
+    "question": "How many minutes are there in a day?",
+    "answer": "1,440 minutes",
+    "source": "https://en.wikipedia.org/wiki/Day",
+    "id": 49
+  },
+  {
+    "question": "What is the age of the oldest living tree in years?",
+    "answer": "4,853 years",
+    "source": "https://en.wikipedia.org/wiki/Old_Tjikko",
+    "id": 50
+  },
+  {
+    "question": "How many kilometers is the distance around the equator?",
+    "answer": "40,075 km",
+    "source": "https://en.wikipedia.org/wiki/Equator",
+    "id": 51
+  },
+  {
+    "question": "In what year was the first modern Olympic Games held?",
+    "answer": "1896",
+    "source": "https://en.wikipedia.org/wiki/1896_Summer_Olympics",
+    "id": 52
+  },
+  {
+    "question": "What is the highest recorded temperature on Earth, in degrees Celsius?",
+    "answer": "56.7°C",
+    "source": "https://wmo.asu.edu/",
+    "id": 53
+  },
+  {
+    "question": "How many years did the construction of the Great Pyramid of Giza take?",
+    "answer": "27 years",
+    "source": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza",
+    "id": 54
+  },
+  {
+    "question": "How many kilograms does the average adult human brain weigh?",
+    "answer": "1.4 kg",
+    "source": "https://en.wikipedia.org/wiki/Human_brain",
+    "id": 55
+  },
+  {
+    "question": "How many meters is the Kármán line, marking the boundary of space?",
+    "answer": "100,000 m",
+    "source": "https://en.wikipedia.org/wiki/K%C3%A1rm%C3%A1n_line",
+    "id": 56
+  },
+  {
+    "question": "What is the average life expectancy of a giant tortoise in years?",
+    "answer": "100 years",
+    "source": "https://en.wikipedia.org/wiki/Tortoise",
+    "id": 57
+  },
+  {
+    "question": "What is the mass of the Earth in kilograms?",
+    "answer": "5.97 x 10^24 kg",
+    "source": "https://en.wikipedia.org/wiki/Earth",
+    "id": 58
+  },
+  {
+    "question": "How many kilometers is the width of the Grand Canyon at its widest point?",
+    "answer": "29 km",
+    "source": "https://en.wikipedia.org/wiki/Grand_Canyon",
+    "id": 59
+  },
+  {
+    "question": "How many years did the Apollo program run?",
+    "answer": "14 years",
+    "source": "https://www.nasa.gov/",
+    "id": 60
+  },
+  {
+    "question": "What is the depth of Lake Baikal, the world’s deepest freshwater lake, in meters?",
+    "answer": "1,642 m",
+    "source": "https://en.wikipedia.org/wiki/Lake_Baikal",
+    "id": 61
+  },
+  {
+    "question": "How many people are born worldwide every day, on average?",
+    "answer": "385,000",
+    "source": "https://www.worldometers.info/",
+    "id": 62
+  },
+  {
+    "question": "What is the speed of sound in air, in meters per second?",
+    "answer": "343 m/s",
+    "source": "https://en.wikipedia.org/wiki/Speed_of_sound",
+    "id": 63
+  },
+  {
+    "question": "How many moons does Jupiter have?",
+    "answer": "95 moons",
+    "source": "https://solarsystem.nasa.gov/",
+    "id": 64
+  },
+  {
+    "question": "How many kilometers is the longest nonstop commercial flight?",
+    "answer": "15,349 km",
+    "source": "https://en.wikipedia.org/wiki/Longest_flights",
+    "id": 65
+  },
+  {
+    "question": "What year was the first successful human organ transplant performed?",
+    "answer": "1954",
+    "source": "https://en.wikipedia.org/wiki/Organ_transplantation",
+    "id": 66
+  },
+  {
+    "question": "What is the current estimated population of Africa as of 2023?",
+    "answer": "1,460,000,000",
+    "source": "https://www.worldometers.info/world-population/africa-population/",
+    "id": 67
+  },
+  {
+    "question": "How many years does it take Halley’s Comet to orbit the Sun?",
+    "answer": "75 years",
+    "source": "https://en.wikipedia.org/wiki/Halley%27s_Comet",
+    "id": 68
+  },
+  {
+    "question": "How many kilograms is the average weight of an adult blue whale?",
+    "answer": "136,000 kg",
+    "source": "https://en.wikipedia.org/wiki/Blue_whale",
+    "id": 69
+  },
+  {
+    "question": "How many kilometers is the circumference of the Moon?",
+    "answer": "10,921 km",
+    "source": "https://en.wikipedia.org/wiki/Moon",
+    "id": 70
+  },
+  {
+    "question": "What is the number of stars in the Milky Way Galaxy, estimated in billions?",
+    "answer": "100-400 billion",
+    "source": "https://en.wikipedia.org/wiki/Milky_Way",
+    "id": 71
+  },
+  {
+    "question": "What is the approximate age of Stonehenge in years?",
+    "answer": "5,000 years",
+    "source": "https://en.wikipedia.org/wiki/Stonehenge",
+    "id": 72
+  },
+  {
+    "question": "How many days are there in the average human gestation period?",
+    "answer": "280 days",
+    "source": "https://en.wikipedia.org/wiki/Gestation",
+    "id": 73
+  },
+  {
+    "question": "How many kilometers is the diameter of the Sun?",
+    "answer": "1,392,700 km",
+    "source": "https://en.wikipedia.org/wiki/Sun",
+    "id": 74
+  },
+  {
+    "question": "What is the average temperature of the Earth’s core in degrees Celsius?",
+    "answer": "5,200°C",
+    "source": "https://en.wikipedia.org/wiki/Earth%27s_inner_core",
+    "id": 75
+  },
+  {
+    "question": "How many days did it take for Phileas Fogg to complete his journey in Jules Verne's novel?",
+    "answer": "80 days",
+    "source": "https://en.wikipedia.org/wiki/Around_the_World_in_Eighty_Days",
+    "id": 76
+  },
+  {
+    "question": "How many meters is the Petronas Towers in Kuala Lumpur?",
+    "answer": "452 m",
+    "source": "https://en.wikipedia.org/wiki/Petronas_Towers",
+    "id": 77
+  },
+  {
+    "question": "How many minutes does it take for sunlight to reach Earth?",
+    "answer": "8.3 minutes",
+    "source": "https://www.nasa.gov/",
+    "id": 78
+  },
+  {
+    "question": "What is the average number of taste buds on a human tongue?",
+    "answer": "10,000",
+    "source": "https://en.wikipedia.org/wiki/Taste_bud",
+    "id": 79
+  },
+  {
+    "question": "What year did the Black Death peak in Europe?",
+    "answer": "1347",
+    "source": "https://en.wikipedia.org/wiki/Black_Death",
+    "id": 80
+  },
+  {
+    "question": "How many kilometers long is the Suez Canal?",
+    "answer": "193 km",
+    "source": "https://en.wikipedia.org/wiki/Suez_Canal",
+    "id": 81
+  },
+  {
+    "question": "How many kilograms is the weight of the largest gold bar ever cast?",
+    "answer": "250 kg",
+    "source": "https://en.wikipedia.org/wiki/Gold",
+    "id": 82
+  },
+  {
+    "question": "What is the length of the Sahara Desert, in kilometers?",
+    "answer": "4,800 km",
+    "source": "https://en.wikipedia.org/wiki/Sahara",
+    "id": 83
+  },
+  {
+    "question": "How many years is the current estimated lifespan of the Sun?",
+    "answer": "10 billion years",
+    "source": "https://www.nasa.gov/",
+    "id": 84
+  },
+  {
+    "question": "How many times does a hummingbird’s wings beat per second on average?",
+    "answer": "50-80 times",
+    "source": "https://en.wikipedia.org/wiki/Hummingbird",
+    "id": 85
+  },
+  {
+    "question": "How many islands make up the country of Japan?",
+    "answer": "6,852 islands",
+    "source": "https://en.wikipedia.org/wiki/Japan",
+    "id": 86
+  },
+  {
+    "question": "How many kilograms of chocolate does the average Swiss citizen consume annually?",
+    "answer": "11 kg",
+    "source": "https://en.wikipedia.org/wiki/Chocolate_consumption_by_country",
+    "id": 87
+  },
+  {
+    "question": "How many kilometers is the distance from New York City to Los Angeles?",
+    "answer": "3,944 km",
+    "source": "https://en.wikipedia.org/wiki/Distance_between_cities",
+    "id": 88
+  },
+  {
+    "question": "How many liters of water are in an Olympic-sized swimming pool?",
+    "answer": "2,500,000 liters",
+    "source": "https://en.wikipedia.org/wiki/Olympic-size_swimming_pool",
+    "id": 89
+  },
+  {
+    "question": "How many days does the orbit of Mercury around the Sun take?",
+    "answer": "88 days",
+    "source": "https://en.wikipedia.org/wiki/Mercury_(planet)",
+    "id": 90
+  },
+  {
+    "question": "What is the highest speed ever recorded for a manned spacecraft, in kilometers per hour?",
+    "answer": "39,937 km/h",
+    "source": "https://www.nasa.gov/",
+    "id": 91
+  },
+  {
+    "question": "How many years does the average honey bee live?",
+    "answer": "5-6 weeks",
+    "source": "https://en.wikipedia.org/wiki/Honey_bee",
+    "id": 92
+  },
+  {
+    "question": "What is the height of Niagara Falls in meters?",
+    "answer": "51 m",
+    "source": "https://en.wikipedia.org/wiki/Niagara_Falls",
+    "id": 93
+  },
+  {
+    "question": "How many kilometers is the total length of the Great Rift Valley?",
+    "answer": "6,000 km",
+    "source": "https://en.wikipedia.org/wiki/Great_Rift_Valley",
+    "id": 94
+  },
+  {
+    "question": "What year did the first human climb Mount Everest?",
+    "answer": "1953",
+    "source": "https://en.wikipedia.org/wiki/1953_British_Mount_Everest_expedition",
+    "id": 95
+  },
+  {
+    "question": "How many species of mammals are there in the world?",
+    "answer": "6,399 species",
+    "source": "https://en.wikipedia.org/wiki/Mammal",
+    "id": 96
+  }
+]
+}

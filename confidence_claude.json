@@ -1,0 +1,484 @@
+{
+"questions": [
+    {
+      "id": 1,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 2,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 3,
+      "confidence": {
+        "claude": 85
+      }
+    },
+    {
+      "id": 4,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 5,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 6,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 7,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 8,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 9,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 10,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 11,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 12,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 13,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 14,
+      "confidence": {
+        "claude": 85
+      }
+    },
+    {
+      "id": 15,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 16,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 17,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 18,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 19,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 20,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 21,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 22,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 23,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 24,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 25,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 26,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 27,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 28,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 29,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 30,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 31,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 32,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 33,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 34,
+      "confidence": {
+        "claude": 85
+      }
+    },
+    {
+      "id": 35,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 36,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 37,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 38,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 39,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 40,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 41,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 42,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 43,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 44,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 45,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 46,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 47,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 48,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 49,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 50,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 51,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 52,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 53,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 54,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 55,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 56,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 57,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 58,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 59,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 60,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 61,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 62,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 63,
+      "confidence": {
+        "claude": 90
+      }
+    },
+    {
+      "id": 64,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 65,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 66,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 67,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 68,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 69,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 70,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 71,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 72,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 73,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 74,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 75,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 76,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 77,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 78,
+      "confidence": {
+        "claude": 95
+      }
+    },
+    {
+      "id": 79,
+      "confidence": {
+        "claude": 100
+      }
+    },
+    {
+      "id": 80,
+      "confidence": {
+        "claude": 100
+      }
+    }
+]
+}

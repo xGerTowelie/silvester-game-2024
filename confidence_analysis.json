@@ -1,0 +1,66 @@
+{
+  "topGaps": [
+    {
+      "id": 17,
+      "gptConfidence": 77,
+      "claudeConfidence": 100,
+      "gap": 23
+    },
+    {
+      "id": 8,
+      "gptConfidence": 80,
+      "claudeConfidence": 100,
+      "gap": 20
+    },
+    {
+      "id": 28,
+      "gptConfidence": 83,
+      "claudeConfidence": 100,
+      "gap": 17
+    },
+    {
+      "id": 13,
+      "gptConfidence": 84,
+      "claudeConfidence": 100,
+      "gap": 16
+    },
+    {
+      "id": 23,
+      "gptConfidence": 84,
+      "claudeConfidence": 100,
+      "gap": 16
+    }
+  ],
+  "lowestConfidences": [
+    {
+      "id": 17,
+      "gptConfidence": 77,
+      "claudeConfidence": 100,
+      "lowestConfidence": 77
+    },
+    {
+      "id": 8,
+      "gptConfidence": 80,
+      "claudeConfidence": 100,
+      "lowestConfidence": 80
+    },
+    {
+      "id": 28,
+      "gptConfidence": 83,
+      "claudeConfidence": 100,
+      "lowestConfidence": 83
+    },
+    {
+      "id": 36,
+      "gptConfidence": 83,
+      "claudeConfidence": 95,
+      "lowestConfidence": 83
+    },
+    {
+      "id": 13,
+      "gptConfidence": 84,
+      "claudeConfidence": 100,
+      "lowestConfidence": 84
+    }
+  ]
+}
