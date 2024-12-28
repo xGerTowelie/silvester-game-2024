@@ -58,8 +58,12 @@ export default function Monitor() {
         if (!socket) return
 
         const handlePlayerJoined = (event: PlayerJoinedEvent) => {
-            setGameState((prev) => ({ ...prev, players: [...prev.players, event.player] }))
-            console.log(`New player ${event.player} joined the game!`)
+            const found = gameState.players.find(player => player.name === event.player.name)
+            console.log(event.player.name, gameState.players)
+            if (!found) {
+                setGameState((prev) => ({ ...prev, players: [...prev.players, event.player] }))
+                console.log(`New player ${event.player} joined the game!`)
+            }
         }
 
         const handlePlayerLeft = (event: PlayerLeftEvent) => {
@@ -91,7 +95,7 @@ export default function Monitor() {
         socket.on("player_joined", handlePlayerJoined)
         socket.on("player_left", handlePlayerLeft)
         socket.on("player_choice", handlePlayerChoice)
-    }, [socket, gameState.players, playerChoices])
+    }, [socket, gameState, gameState.players, playerChoices])
 
 
     return (
