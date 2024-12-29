@@ -18,7 +18,7 @@ export type Round = {
 export type GameState = {
     iteration: number;
     players: Array<Player>;
-    round: Round;
+    round: Round | null;
 }
 
 export interface Question {

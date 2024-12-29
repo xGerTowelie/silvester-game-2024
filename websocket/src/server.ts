@@ -30,7 +30,7 @@ const io = new Server(httpServer, {
 
 const returnedQuestionIds = new Set<number>();
 
-async function getQuestion(): Promise<Question | null> {
+async function getQuestion(): Promise<Question> {
     try {
         const filePath = path.join(process.cwd(), '../all.json');
         const fileContents = await fs.readFile(filePath, 'utf8');
@@ -40,7 +40,7 @@ async function getQuestion(): Promise<Question | null> {
 
         if (availableQuestions.length === 0) {
             returnedQuestionIds.clear();
-            return await getQuestion();
+            return getQuestion();
         }
 
         const randomIndex = Math.floor(Math.random() * availableQuestions.length);
@@ -57,7 +57,7 @@ async function getQuestion(): Promise<Question | null> {
         };
     } catch (error) {
         console.error('Error in getQuestion:', error);
-        return null;
+        throw new Error("Failed to fetch question");
     }
 }
 
@@ -113,20 +113,32 @@ function calculateHints(answer: string): { hint1: string; hint2: string } {
     };
 }
 
-const initialRound: Round = {
-    step: "question",
-    number: 1,
-    question: "How old was Albert Einstein when he received his first Nobel Prize?",
-    hint1: "He was younger than Angela Merkel when she became German Chancellor",
-    hint2: "He was older than 30.",
-    solution: "42"
-};
+async function createInitialRound(): Promise<Round> {
+    const question = await getQuestion();
+    return {
+        step: "question",
+        number: 1,
+        question: question.question,
+        hint1: question.hint1,
+        hint2: question.hint2,
+        solution: question.answer
+    };
+}
 
-const Game: GameState = {
-    round: initialRound,
+let Game: GameState = {
+    round: null,
     players: [],
     iteration: 0
 };
+
+async function initializeGame() {
+    const initialRound = await createInitialRound();
+    Game = {
+        round: initialRound,
+        players: [],
+        iteration: 0
+    };
+}
 
 const connections: Map<string, Socket> = new Map();
 let monitor: Socket | null = null;
@@ -140,9 +152,13 @@ io.use((socket, next) => {
     }
 });
 
-io.on("connection", (socket: Socket) => {
+io.on("connection", async (socket: Socket) => {
     connections.set(socket.id, socket);
     console.log(`New connection added to the pool: ${socket.id}`);
+
+    if (!Game.round) {
+        await initializeGame();
+    }
 
     socket.on("error", (error) => {
         console.error(`Socket error for ${socket.id}:`, error);
@@ -157,6 +173,10 @@ io.on("connection", (socket: Socket) => {
 
     socket.on("next_step", async () => {
         try {
+            if (!Game.round) {
+                throw new Error("Game round is not initialized");
+            }
+
             switch (Game.round.step) {
                 case "question":
                     Game.round.step = "choices";
@@ -172,23 +192,11 @@ io.on("connection", (socket: Socket) => {
                     Game.round.step = "solution";
                     break;
                 case "solution":
-                    const newQuestion = await getQuestion();
-                    if (newQuestion) {
-                        Game.round = {
-                            step: "question",
-                            number: Game.round.number + 1,
-                            question: newQuestion.question,
-                            hint1: newQuestion.hint1,
-                            hint2: newQuestion.hint2,
-                            solution: newQuestion.answer
-                        };
-                        Game.iteration++;
-                        Game.players.forEach(player => {
-                            player.choice = undefined;
-                        });
-                    } else {
-                        console.error("Failed to fetch new question");
-                    }
+                    Game.round = await createInitialRound();
+                    Game.iteration++;
+                    Game.players.forEach(player => {
+                        player.choice = undefined;
+                    });
                     break;
             }
             io.emit("game_state_update", { game: Game });

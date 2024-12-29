@@ -1,20 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { io, Socket } from "socket.io-client"
 import { GameState } from "@/types/Game"
-import { rounds } from "@/types/rounds"
 import TVMonitor from "@/components/TVMonitor"
-
-const initialGameState: GameState = {
-    round: rounds[0],
-    players: [],
-    iteration: 0
-}
 
 export default function Monitor() {
     const [socket, setSocket] = useState<Socket | null>(null)
-    const [gameState, setGameState] = useState<GameState>(initialGameState)
+    const [gameState, setGameState] = useState<GameState | null>(null)
 
     useEffect(() => {
         const newSocket = io("http://localhost:3001")
@@ -42,8 +35,20 @@ export default function Monitor() {
         }
     }
 
+    const kickPlayer = () => {
+        if (socket) {
+            socket.emit("kick_player")
+        }
+    }
+
     return (
-        <TVMonitor gameState={gameState} nextStep={nextStep} />
+        <Suspense fallback={<h1>Loading Gamestate...</h1>}>
+            {gameState ? (
+                <TVMonitor gameState={gameState} nextStep={nextStep} kickPlayer={kickPlayer} />
+            ) : (
+                <h1>Waiting for initial game state...</h1>
+            )}
+        </Suspense>
     )
 }
 
