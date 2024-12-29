@@ -4,7 +4,7 @@ import { GameState, Player, Round, Question } from './types/Game';
 import {
     GameUpdateEvent,
     GetPlayerByNameEvent,
-    GetPlayerByNameEventResponse,
+    GetPlayerByNameEventResponse as JoinEventResponse,
     JoinEvent,
     PlayerChoiceEvent,
     PlayerJoinedEvent,
@@ -206,7 +206,7 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
-    socket.on("join", (event: JoinEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
+    socket.on("join", (event: JoinEvent, callback: (response: JoinEventResponse) => void) => {
         try {
             if (!event.name || !event.color) {
                 throw new Error("Invalid player data");
@@ -240,7 +240,7 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
-    socket.on("get_player_by_name", (event: GetPlayerByNameEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
+    socket.on("get_player_by_name", (event: GetPlayerByNameEvent, callback: (response: JoinEventResponse) => void) => {
         try {
             const player = Game.players.find(player => player.name === event.name);
             callback({ player: player || null });

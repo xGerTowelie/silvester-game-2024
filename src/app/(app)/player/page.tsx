@@ -11,15 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import {
     Sheet,
     SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { Settings, Trophy } from 'lucide-react'
+import { Settings } from 'lucide-react'
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { toast } from "@/hooks/use-toast"
+import { JoinEventResponse } from "@/types/Events"
 
 const colorOptions = [
     { value: "red", label: "Red", bg: "from-red-700 to-red-900" },
@@ -54,7 +51,7 @@ export default function PlayerPage() {
 
         newSocket.on("connect", () => {
             console.log("Socket connection established.")
-            newSocket.emit("join", { name: playerName, color: playerColor }, (response) => {
+            newSocket.emit("join", { name: playerName, color: playerColor }, (response: JoinEventResponse) => {
                 if (response.player) {
                     setPlayer(response.player)
                     localStorage.setItem("playerName", playerName)
@@ -70,7 +67,7 @@ export default function PlayerPage() {
         newSocket.on("game_state_update", (event) => {
             setGameState(event.game)
             if (event.game.players) {
-                const updatedPlayer = event.game.players.find(p => p.name === playerName)
+                const updatedPlayer = event.game.players.find((p: Player) => p.name === playerName)
                 if (updatedPlayer) {
                     setPlayer(updatedPlayer)
                 }
@@ -85,7 +82,7 @@ export default function PlayerPage() {
         newSocket.on("reconnect", () => {
             console.log("Reconnected to server")
             setIsReconnecting(false)
-            newSocket.emit("join", { name: playerName, color: playerColor }, (response) => {
+            newSocket.emit("join", { name: playerName, color: playerColor }, (response: JoinEventResponse) => {
                 if (response.player) {
                     setPlayer(response.player)
                 }
@@ -196,7 +193,7 @@ export default function PlayerPage() {
                             <div className="py-4 flex-1 space-y-4">
                                 <div className="space-y-3 flex-grow">
                                     <h3 className="text-lg font-semibold">Lobby</h3>
-                                    {gameState && gameState.players.map((p, index) => (
+                                    {gameState && gameState.players.map((p) => (
                                         <div key={p.name} className="flex items-center gap-2">
                                             <Avatar className="w-8 h-8 shadow shadow-black/40">
                                                 <AvatarFallback className="text-white font-semibold" style={{ background: p.color }}>
@@ -219,7 +216,7 @@ export default function PlayerPage() {
             </nav>
             <PlayerView
                 player={player}
-                gameState={gameState?.round.step || "waiting"}
+                gameState={gameState?.round?.step || "waiting"}
                 socket={socket}
             />
         </div>
