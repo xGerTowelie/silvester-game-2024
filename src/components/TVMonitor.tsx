@@ -12,6 +12,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { CustomAvatar } from "./CustomAvatar"
 
 interface TVMonitorProps {
     gameState: GameState
@@ -111,11 +112,12 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                         <div className="space-y-4">
                             {players.map((player) => (
                                 <div key={player.name} className="flex items-center gap-4 bg-white/5 p-3 rounded-lg">
-                                    <Avatar className="w-10 h-10 shadow shadow-black/40 opacity-80">
-                                        <AvatarFallback className="font-semibold text-white text-shadow-md text-lg" style={{ background: player.color }}>
-                                            {player.name.charAt(0).toUpperCase()}
-                                        </AvatarFallback>
-                                    </Avatar>
+                                    <CustomAvatar
+                                        name={player.name}
+                                        color={player.color}
+                                        size={34}
+                                        animation="electricSurge"
+                                    />
                                     <div className="flex-1">
                                         <div className="flex items-center justify-between">
                                             <span className="font-semibold text-lg">{player.name}</span>

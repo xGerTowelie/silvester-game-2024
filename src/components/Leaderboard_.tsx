@@ -4,6 +4,7 @@ import { Player } from "@/types/Game"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import { motion } from "framer-motion"
+import { CustomAvatar } from "./CustomAvatar"
 
 type LeaderboardProps = {
     collapsed: boolean,
@@ -23,9 +24,12 @@ export default function Leaderboard({ collapsed, players }: LeaderboardProps) {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-center space-x-4"
                 >
-                    <Avatar className="w-10 h-10">
-                        <AvatarFallback className="font-semibold" style={{ background: player.color }}>x{player.name.charAt(0).toUpperCase()}</AvatarFallback>
-                    </Avatar>
+                    <CustomAvatar
+                        name={player.name}
+                        color={player.color}
+                        size={34}
+                        animation="electricSurge"
+                    />
                     {!collapsed && (
                         <div className="flex-grow">
                             <div className="flex justify-between items-center">

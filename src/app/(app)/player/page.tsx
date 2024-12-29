@@ -14,9 +14,9 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Settings } from 'lucide-react'
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { toast } from "@/hooks/use-toast"
 import { JoinEventResponse } from "@/types/Events"
+import { CustomAvatar } from "@/components/CustomAvatar"
 
 const colorOptions = [
     { value: "red", label: "Red", bg: "from-red-700 to-red-900" },
@@ -195,11 +195,12 @@ export default function PlayerPage() {
                                     <h3 className="text-lg font-semibold">Lobby</h3>
                                     {gameState && gameState.players.map((p) => (
                                         <div key={p.name} className="flex items-center gap-2">
-                                            <Avatar className="w-8 h-8 shadow shadow-black/40">
-                                                <AvatarFallback className="text-white text-shadow-md font-semibold " style={{ background: p.color, color: "white" }}>
-                                                    {p.name.charAt(0).toUpperCase()}
-                                                </AvatarFallback>
-                                            </Avatar>
+                                            <CustomAvatar
+                                                name={p.name}
+                                                color={p.color}
+                                                size={34}
+                                                animation="electricSurge"
+                                            />
                                             <span className="text-lg font-normal">{p.name}</span>
                                         </div>
                                     ))}
