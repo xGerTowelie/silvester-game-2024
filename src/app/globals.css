@@ -76,3 +76,19 @@ input::placeholder {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .text-shadow {
+    @apply [text-shadow:_0_1px_0_rgb(0_0_0_/_50%)];
+  }
+  .text-shadow-md {
+    @apply [text-shadow:_0_2px_4px_rgb(0_0_0_/_50%)];
+  }
+  .text-shadow-lg {
+    @apply [text-shadow:_0_4px_8px_rgb(0_0_0_/_50%)];
+  }
+  .text-shadow-none {
+    @apply [text-shadow:_none];
+  }
+}
+

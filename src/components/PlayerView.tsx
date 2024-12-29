@@ -33,8 +33,8 @@ export default function PlayerView({ player, gameState, socket }: PlayerViewProp
     return (
         <Card className="w-full max-w-screen-md mx-auto bg-white/10 backdrop-blur-md border-none text-white p-5 space-y-5">
             <CardHeader className="flex flex-row items-center gap-4">
-                <Avatar className="w-16 h-16 shadow shadow-black/40 opacity-60">
-                    <AvatarFallback className="text-white font-semibold shadow-black shadow-2xl " style={{ background: player.color }}>
+                <Avatar className="w-16 h-16 shadow shadow-black/40">
+                    <AvatarFallback className="text-2xl text-white font-semibold text-shadow-md shadow-black shadow-2xl " style={{ background: player.color }}>
                         {player.name.charAt(0).toUpperCase()}
                     </AvatarFallback>
                 </Avatar>

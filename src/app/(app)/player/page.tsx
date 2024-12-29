@@ -196,7 +196,7 @@ export default function PlayerPage() {
                                     {gameState && gameState.players.map((p) => (
                                         <div key={p.name} className="flex items-center gap-2">
                                             <Avatar className="w-8 h-8 shadow shadow-black/40">
-                                                <AvatarFallback className="text-white font-semibold" style={{ background: p.color }}>
+                                                <AvatarFallback className="text-white text-shadow-md font-semibold " style={{ background: p.color, color: "white" }}>
                                                     {p.name.charAt(0).toUpperCase()}
                                                 </AvatarFallback>
                                             </Avatar>
