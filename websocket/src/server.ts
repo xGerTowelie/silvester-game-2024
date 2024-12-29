@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import { GameState, Player, Round } from './types/Game';
+import { GameState, Player, Round, Question } from './types/Game';
 import {
     GameUpdateEvent,
     GetPlayerByNameEvent,
@@ -10,26 +10,108 @@ import {
     PlayerJoinedEvent,
     PlayerLeftEvent
 } from './types/Events';
+import fs from 'fs/promises';
+import path from 'path';
 
 const PORT = process.env.PORT || 3001;
 
-// Create HTTP server
 const httpServer = createServer();
 
-// Initialize Socket.IO with CORS configuration
 const io = new Server(httpServer, {
     cors: {
         origin: "http://localhost:3000",
         methods: ["GET", "POST"]
     },
-    // Add reconnection configurations
     connectionStateRecovery: {
-        // the backup duration of the sessions and the packets
         maxDisconnectionDuration: 2 * 60 * 1000,
-        // whether to skip middlewares upon successful recovery
         skipMiddlewares: true,
     },
 });
+
+const returnedQuestionIds = new Set<number>();
+
+async function getQuestion(): Promise<Question | null> {
+    try {
+        const filePath = path.join(process.cwd(), '../all.json');
+        const fileContents = await fs.readFile(filePath, 'utf8');
+        const data: { questions: Question[] } = JSON.parse(fileContents);
+
+        const availableQuestions = data.questions.filter(q => !returnedQuestionIds.has(q.id));
+
+        if (availableQuestions.length === 0) {
+            returnedQuestionIds.clear();
+            return await getQuestion();
+        }
+
+        const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+        const selectedQuestion = availableQuestions[randomIndex];
+
+        returnedQuestionIds.add(selectedQuestion.id);
+
+        const { hint1, hint2 } = calculateHints(selectedQuestion.answer);
+
+        return {
+            ...selectedQuestion,
+            hint1,
+            hint2,
+        };
+    } catch (error) {
+        console.error('Error in getQuestion:', error);
+        return null;
+    }
+}
+
+function calculateHints(answer: string): { hint1: string; hint2: string } {
+    const rangeMatch = answer.match(/^(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*(.*)$/);
+
+    let num: number;
+    let unit: string;
+
+    if (rangeMatch) {
+        const [, start, end, rangeUnit] = rangeMatch;
+        num = (parseFloat(start) + parseFloat(end)) / 2;
+        unit = rangeUnit;
+    } else {
+        const match = answer.match(/^([\d,]+(?:\.\d+)?)\s*(.*)$/);
+        if (!match) return { hint1: "N/A", hint2: "N/A" };
+        const [, numStr, unitStr] = match;
+        num = parseFloat(numStr.replace(/,/g, ''));
+        unit = unitStr;
+    }
+
+    const percent1 = 1 + Math.random() * 39;
+    const percent2 = 1 + Math.random() * 39;
+
+    const hint1Value = num * (1 - percent1 / 100);
+    const hint2Value = num * (1 + percent2 / 100);
+
+    const formatHint = (value: number) => {
+        if (answer.match(/^\d{4}$/)) {
+            return Math.round(value).toString();
+        }
+
+        if (value >= 1000000) {
+            return Math.round(value / 1000000) + ' million';
+        } else if (value >= 1000) {
+            return Math.round(value / 1000) + 'k';
+        } else {
+            const hasDecimal = answer.includes('.');
+            return hasDecimal ? value.toFixed(2) : Math.round(value);
+        }
+    };
+
+    if (answer.match(/^\d{4}$/)) {
+        return {
+            hint2: `above ${formatHint(hint1Value)} ${unit}`.trim(),
+            hint1: `below ${formatHint(hint2Value)} ${unit}`.trim(),
+        };
+    }
+
+    return {
+        hint1: `above ${formatHint(hint1Value)} ${unit}`.trim(),
+        hint2: `below ${formatHint(hint2Value)} ${unit}`.trim(),
+    };
+}
 
 const initialRound: Round = {
     step: "question",
@@ -46,14 +128,11 @@ const Game: GameState = {
     iteration: 0
 };
 
-// Store active connections
 const connections: Map<string, Socket> = new Map();
 let monitor: Socket | null = null;
 
-// Error handling middleware
 io.use((socket, next) => {
     try {
-        // Add any authentication or validation here
         next();
     } catch (error) {
         console.log(error)
@@ -65,7 +144,6 @@ io.on("connection", (socket: Socket) => {
     connections.set(socket.id, socket);
     console.log(`New connection added to the pool: ${socket.id}`);
 
-    // Handle errors for this socket
     socket.on("error", (error) => {
         console.error(`Socket error for ${socket.id}:`, error);
     });
@@ -77,7 +155,7 @@ io.on("connection", (socket: Socket) => {
         monitor.emit("game_state_update", event);
     });
 
-    socket.on("next_step", () => {
+    socket.on("next_step", async () => {
         try {
             switch (Game.round.step) {
                 case "question":
@@ -94,18 +172,23 @@ io.on("connection", (socket: Socket) => {
                     Game.round.step = "solution";
                     break;
                 case "solution":
-                    Game.round = {
-                        step: "question",
-                        number: Game.round.number + 1,
-                        question: `New question for round ${Game.iteration + 2}`,
-                        hint1: `Hint 1 for round ${Game.iteration + 2}`,
-                        hint2: `Hint 2 for round ${Game.iteration + 2}`,
-                        solution: `Solution for round ${Game.iteration + 2}`
-                    };
-                    Game.iteration++;
-                    Game.players.forEach(player => {
-                        player.choice = undefined;
-                    });
+                    const newQuestion = await getQuestion();
+                    if (newQuestion) {
+                        Game.round = {
+                            step: "question",
+                            number: Game.round.number + 1,
+                            question: newQuestion.question,
+                            hint1: newQuestion.hint1,
+                            hint2: newQuestion.hint2,
+                            solution: newQuestion.answer
+                        };
+                        Game.iteration++;
+                        Game.players.forEach(player => {
+                            player.choice = undefined;
+                        });
+                    } else {
+                        console.error("Failed to fetch new question");
+                    }
                     break;
             }
             io.emit("game_state_update", { game: Game });
@@ -117,7 +200,6 @@ io.on("connection", (socket: Socket) => {
 
     socket.on("join", (event: JoinEvent, callback: (response: GetPlayerByNameEventResponse) => void) => {
         try {
-            // Validate player name
             if (!event.name || !event.color) {
                 throw new Error("Invalid player data");
             }
@@ -219,7 +301,6 @@ io.on("connection", (socket: Socket) => {
     });
 });
 
-// Start the server
 httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

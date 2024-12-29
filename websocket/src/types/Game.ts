@@ -21,3 +21,15 @@ export type GameState = {
     round: Round;
 }
 
+export interface Question {
+    id: number;
+    question: string;
+    answer: string;
+    source: string;
+    hint1: string;
+    hint2: string;
+    confidence: {
+        claude: number;
+        gpt: number;
+    };
+}
