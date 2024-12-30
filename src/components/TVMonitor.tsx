@@ -12,7 +12,6 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { CustomAvatar } from "./CustomAvatar"
 
 interface TVMonitorProps {
     gameState: GameState
@@ -24,7 +23,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
     const { round, players, iteration } = gameState
 
     const getStepAction = () => {
-        switch (round.step) {
+        switch (round?.step) {
             case "question": return "Start Choices"
             case "choices": return "Show First Hint"
             case "hint1": return "Show Second Hint"
@@ -34,9 +33,15 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
         }
     }
 
-    const allChoicesMade = round.step === "choices" && players.every(player => player.choice)
+    const allChoicesMade = round?.step === "choices" && players.every(player => player.choice)
     const waitingCount = players.filter(p => !p.choice).length
     const totalPlayers = players.length
+
+    if (!round) {
+        return (
+            <h1>Round not set</h1>
+        )
+    }
 
     return (
         <div className="flex flex-col w-screen min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 text-white p-8">
@@ -50,7 +55,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                     <CardContent className="p-6">
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={round.question}
+                                key={round?.question}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
@@ -59,24 +64,24 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                             >
                                 <div className="bg-indigo-900/50 p-6 rounded-lg shadow-lg">
                                     <h2 className="text-2xl font-semibold mb-2">Question:</h2>
-                                    <p className="text-3xl">{round.question}</p>
+                                    <p className="text-3xl">{round?.question}</p>
                                 </div>
 
-                                {(round.step === "hint1" || round.step === "hint2" || round.step === "solution") && (
+                                {(round?.step === "hint1" || round?.step === "hint2" || round.step === "solution") && (
                                     <div className="bg-yellow-700/50 p-6 rounded-lg shadow-lg">
                                         <h3 className="text-xl font-semibold mb-2">Hint 1:</h3>
-                                        <p className="text-2xl">{round.hint1}</p>
+                                        <p className="text-2xl">{round?.hint1}</p>
                                     </div>
                                 )}
 
-                                {(round.step === "hint2" || round.step === "solution") && (
+                                {(round?.step === "hint2" || round?.step === "solution") && (
                                     <div className="bg-orange-700/50 p-6 rounded-lg shadow-lg">
                                         <h3 className="text-xl font-semibold mb-2">Hint 2:</h3>
                                         <p className="text-2xl">{round.hint2}</p>
                                     </div>
                                 )}
 
-                                {round.step === "solution" && (
+                                {round?.step === "solution" && (
                                     <>
                                         <div className="bg-green-700/50 p-6 rounded-lg shadow-lg">
                                             <h3 className="text-xl font-semibold mb-2">Solution:</h3>
@@ -112,17 +117,16 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                         <div className="space-y-4">
                             {players.map((player) => (
                                 <div key={player.name} className="flex items-center gap-4 bg-white/5 p-3 rounded-lg">
-                                    <CustomAvatar
-                                        name={player.name}
-                                        color={player.color}
-                                        size={34}
-                                        animation="none"
-                                    />
+                                    <Avatar className="w-10 h-10 shadow shadow-black/40 opacity-80">
+                                        <AvatarFallback className="font-semibold text-white text-shadow-md text-lg" style={{ background: player.color }}>
+                                            {player.name.charAt(0).toUpperCase()}
+                                        </AvatarFallback>
+                                    </Avatar>
                                     <div className="flex-1">
                                         <div className="flex items-center justify-between">
                                             <span className="font-semibold text-lg">{player.name}</span>
                                         </div>
-                                        {round.step === "choices" && (
+                                        {round?.step === "choices" && (
                                             <div className="text-sm mt-1">
                                                 {player.choice ? (
                                                     <span className="text-green-400 flex items-center">
@@ -158,16 +162,16 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
 
             <div className="mt-8 flex justify-between items-center">
                 <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-                    {round.step.charAt(0).toUpperCase() + round.step.slice(1)} Phase
+                    {round?.step.charAt(0).toUpperCase() + round?.step.slice(1)} Phase
                 </div>
                 <div className="flex items-center gap-4">
                     <Button
                         size="lg"
                         onClick={nextStep}
                         className="text-xl px-8 py-6 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-lg shadow-indigo-600/20 rounded-xl border border-indigo-500/20"
-                        disabled={round.step === "choices" && !allChoicesMade}
+                        disabled={round?.step === "choices" && !allChoicesMade}
                     >
-                        {round.step === "choices" && !allChoicesMade ? (
+                        {round?.step === "choices" && !allChoicesMade ? (
                             <>Waiting: {waitingCount}/{totalPlayers}</>
                         ) : (
                             <>
