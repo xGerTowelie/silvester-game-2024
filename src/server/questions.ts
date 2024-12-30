@@ -27,7 +27,7 @@ function calculateHints(answer: string): { hint1: string; hint2: string } {
     const rangeMatch = answer.match(/^(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*(.*)$/);
 
     let num: number;
-    let unit: string;
+    let unit: string = '';
 
     if (rangeMatch) {
         // If it's a range, use the average
@@ -38,8 +38,9 @@ function calculateHints(answer: string): { hint1: string; hint2: string } {
         // If it's not a range, use the original parsing
         const match = answer.match(/^([\d,]+(?:\.\d+)?)\s*(.*)$/);
         if (!match) return { hint1: "N/A", hint2: "N/A" };
-        [, num, unit] = match;
-        num = parseFloat(num.replace(/,/g, ''));
+        const [, numStr, unitStr] = match;
+        num = parseFloat(numStr.replace(/,/g, ''));
+        unit = unitStr;
     }
 
     // Calculate random percentages between 1% and 40%
@@ -63,7 +64,7 @@ function calculateHints(answer: string): { hint1: string; hint2: string } {
             return Math.round(value / 1000) + 'k';
         } else {
             const hasDecimal = answer.includes('.');
-            return hasDecimal ? value.toFixed(2) : Math.round(value);
+            return hasDecimal ? value.toFixed(2) : Math.round(value).toString();
         }
     };
 
@@ -80,6 +81,7 @@ function calculateHints(answer: string): { hint1: string; hint2: string } {
         hint2: `below ${formatHint(hint2Value)} ${unit}`.trim(),
     };
 }
+
 
 export async function getQuestion(): Promise<Question | null> {
     try {

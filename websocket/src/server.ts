@@ -144,6 +144,7 @@ const connections: Map<string, Socket> = new Map();
 let monitor: Socket | null = null;
 
 io.use((socket, next) => {
+    console.log(socket)
     try {
         next();
     } catch (error) {

@@ -33,3 +33,9 @@ export interface Question {
         gpt: number;
     };
 }
+
+export type Choice = {
+    value: string
+    playerName: string
+}
+
