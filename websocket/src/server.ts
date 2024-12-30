@@ -19,7 +19,7 @@ const httpServer = createServer();
 
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://silvester.towelie.dev",
+        origin: "https://silvester.towelie.dev",
         methods: ["GET", "POST"]
     },
     connectionStateRecovery: {
