@@ -116,7 +116,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                                         name={player.name}
                                         color={player.color}
                                         size={34}
-                                        animation="electricSurge"
+                                        animation="none"
                                     />
                                     <div className="flex-1">
                                         <div className="flex items-center justify-between">

@@ -51,8 +51,7 @@
       }
     },
     {
-      "question": "What is the height of Mount Everest, the tallest mountain in the world, in meters?",
-      "answer": "8,849 m",
+      "question": "What is the height of Mount Everest, the tallest mountain in the world, in meters?", "answer": "8,849 m",
       "source": "https://en.wikipedia.org/wiki/Mount_Everest",
       "id": 5,
       "confidence": {
