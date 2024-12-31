@@ -10,7 +10,10 @@ export default function Monitor() {
     const [gameState, setGameState] = useState<GameState | null>(null)
 
     useEffect(() => {
-        const newSocket = io("https://silvester-socket.towelie.dev")
+        const socketUrl = process.env["NEXT_PUBLIC_SOCKET_URL"]
+
+        console.log(`Trying to connect to socket: ${socketUrl}`)
+        const newSocket = io(socketUrl)
         setSocket(newSocket)
 
         newSocket.on("connect", () => {
