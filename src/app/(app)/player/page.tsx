@@ -46,7 +46,8 @@ export default function PlayerPage() {
     }, [])
 
     const connectToGame = (playerName: string, playerColor: string) => {
-        const newSocket = io("https://silvester-socket.towelie.dev")
+        const socketUrl = process.env["NEXT_PUBLIC_SOCKET_URL"]
+        const newSocket = io(socketUrl)
         setSocket(newSocket)
 
         newSocket.on("connect", () => {
