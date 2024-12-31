@@ -4,6 +4,7 @@ export type Player = {
     color: string;
     choice?: string;
     socketId: string;
+    lastActive: number;
 }
 
 export type Round = {

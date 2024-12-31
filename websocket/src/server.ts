@@ -7,8 +7,7 @@ import {
     GetPlayerByNameEventResponse as JoinEventResponse,
     JoinEvent,
     PlayerChoiceEvent,
-    PlayerJoinedEvent,
-    PlayerLeftEvent
+    PlayerJoinedEvent
 } from './types/Events';
 import fs from 'fs/promises';
 import path from 'path';
@@ -18,7 +17,7 @@ dotenv.config();
 
 const PORT = 3001;
 const frontendUrl = process.env.FRONTEND_SITE_URL;
-console.log(frontendUrl);
+console.log('Frontend URL:', frontendUrl);
 
 const httpServer = createServer();
 
@@ -34,6 +33,15 @@ const io = new Server(httpServer, {
 });
 
 const returnedQuestionIds = new Set<number>();
+const connections: Map<string, Socket> = new Map();
+const playerChoices = new Map<string, string>();
+let monitor: Socket | null = null;
+
+let Game: GameState = {
+    round: null,
+    players: [],
+    iteration: 0
+};
 
 async function getQuestion(): Promise<Question> {
     try {
@@ -124,17 +132,11 @@ async function createInitialRound(): Promise<Round> {
         step: "question",
         number: 1,
         question: question.question,
-        hint1: question.hint1,
-        hint2: question.hint2,
+        hint1: question.hint1 || '',
+        hint2: question.hint2 || '',
         solution: question.answer
     };
 }
-
-let Game: GameState = {
-    round: null,
-    players: [],
-    iteration: 0
-};
 
 async function initializeGame() {
     const initialRound = await createInitialRound();
@@ -145,21 +147,14 @@ async function initializeGame() {
     };
 }
 
-const connections: Map<string, Socket> = new Map();
-let monitor: Socket | null = null;
-
 io.use((socket, next) => {
-    console.log(socket)
     try {
         next();
     } catch (error) {
-        console.log(error)
+        console.error('Socket middleware error:', error);
         next(new Error("Authentication error"));
     }
 });
-
-// Add a new Map to store player choices
-const playerChoices = new Map();
 
 io.on("connection", async (socket: Socket) => {
     connections.set(socket.id, socket);
@@ -205,6 +200,7 @@ io.on("connection", async (socket: Socket) => {
                     Game.iteration++;
                     Game.players.forEach(player => {
                         player.choice = undefined;
+                        playerChoices.delete(player.name);
                     });
                     break;
             }
@@ -215,7 +211,6 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
-    // Modify the "join" event handler to restore player choice on reconnection
     socket.on("join", (event: JoinEvent, callback: (response: JoinEventResponse) => void) => {
         try {
             if (!event.name || !event.color) {
@@ -224,11 +219,10 @@ io.on("connection", async (socket: Socket) => {
 
             const existingPlayer = Game.players.find(p => p.name.toLowerCase() === event.name.toLowerCase());
             if (existingPlayer) {
-                // Update the existing player's socket ID
                 existingPlayer.socketId = socket.id;
-                // Restore the player's choice if it exists
+                existingPlayer.lastActive = Date.now();
                 if (playerChoices.has(existingPlayer.name)) {
-                    existingPlayer.choice = playerChoices.get(existingPlayer.name);
+                    existingPlayer.choice = playerChoices.get(existingPlayer.name) || undefined;
                 }
                 callback({ player: existingPlayer });
             } else {
@@ -236,7 +230,8 @@ io.on("connection", async (socket: Socket) => {
                     id: socket.id,
                     socketId: socket.id,
                     name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
-                    color: event.color
+                    color: event.color,
+                    lastActive: Date.now()
                 };
 
                 Game.players.push(newPlayer);
@@ -266,13 +261,12 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
-    // Modify the "choice" event handler
     socket.on("choice", (event: PlayerChoiceEvent) => {
         try {
             const player = Game.players.find(p => p.name === event.choice.playerName);
             if (player) {
                 player.choice = event.choice.value;
-                // Store the choice in the playerChoices Map
+                player.lastActive = Date.now();
                 playerChoices.set(player.name, event.choice.value);
                 console.log(`Player ${event.choice.playerName} submitted their choice: ${event.choice.value}`);
                 io.emit("game_state_update", { game: Game });
@@ -289,7 +283,8 @@ io.on("connection", async (socket: Socket) => {
             if (playerIndex !== -1) {
                 const player = Game.players[playerIndex];
                 Game.players.splice(playerIndex, 1);
-                const playerSocket = connections.get(player.socketId);
+                playerChoices.delete(player.name);
+                const playerSocket = connections.get(player.socketId || '');
                 if (playerSocket) {
                     playerSocket.disconnect();
                 }
@@ -302,7 +297,6 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
-    // Modify the "disconnect" event handler
     socket.on("disconnect", () => {
         try {
             connections.delete(socket.id);
@@ -310,8 +304,8 @@ io.on("connection", async (socket: Socket) => {
 
             const player = Game.players.find(player => player.socketId === socket.id);
             if (player) {
-                // Don't remove the player from the game, just mark them as disconnected
                 player.socketId = null;
+                player.lastActive = Date.now();
                 console.log(`Player ${player.name} disconnected but remains in the game!`);
                 io.emit("game_state_update", { game: Game });
             }
@@ -326,12 +320,10 @@ io.on("connection", async (socket: Socket) => {
     });
 });
 
-// Add a new function to clean up inactive players periodically
 function cleanupInactivePlayers() {
     const now = Date.now();
     Game.players = Game.players.filter(player => {
-        if (!player.socketId && now - (player.lastActive || 0) > 5 * 60 * 1000) { //Added || 0 to handle undefined lastActive
-            // Remove player if they've been inactive for more than 5 minutes
+        if (!player.socketId && (now - player.lastActive) > 5 * 60 * 1000) {
             playerChoices.delete(player.name);
             return false;
         }
@@ -340,7 +332,6 @@ function cleanupInactivePlayers() {
     io.emit("game_state_update", { game: Game });
 }
 
-// Run the cleanup function every minute
 setInterval(cleanupInactivePlayers, 60 * 1000);
 
 httpServer.listen(PORT, () => {
