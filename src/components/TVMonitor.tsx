@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { GameState } from "@/types/Game"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, Check, Clock, MoreVertical } from 'lucide-react'
+import { ChevronRight, Check, Clock, MoreVertical, HelpCircle, Globe } from 'lucide-react'
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
     DropdownMenu,
@@ -12,6 +12,11 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 
 interface TVMonitorProps {
     gameState: GameState
@@ -63,7 +68,46 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                                 className="space-y-6"
                             >
                                 <div className="bg-indigo-900/50 p-6 rounded-lg shadow-lg">
-                                    <h2 className="text-2xl font-semibold mb-2">Question:</h2>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <h2 className="text-2xl font-semibold">Question:</h2>
+                                        <div className="flex space-x-2">
+                                            <Popover>
+                                                <PopoverTrigger asChild>
+                                                    <Button variant="outline" size="icon">
+                                                        <HelpCircle className="h-4 w-4" />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-80">
+                                                    <div className="grid gap-4">
+                                                        <div className="space-y-2">
+                                                            <h4 className="font-medium leading-none">Confidence Scores</h4>
+                                                            <p className="text-sm text-muted-foreground">
+                                                                Claude: {round.confidence.claude}%<br />
+                                                                GPT: {round.confidence.gpt}%
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </PopoverContent>
+                                            </Popover>
+                                            <Popover>
+                                                <PopoverTrigger asChild>
+                                                    <Button variant="outline" size="icon">
+                                                        <Globe className="h-4 w-4" />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-80">
+                                                    <div className="grid gap-4">
+                                                        <div className="space-y-2">
+                                                            <h4 className="font-medium leading-none">Original Question (English)</h4>
+                                                            <p className="text-sm text-muted-foreground">
+                                                                {round.question_english}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </div>
+                                    </div>
                                     <p className="text-3xl">{round?.question}</p>
                                 </div>
 
