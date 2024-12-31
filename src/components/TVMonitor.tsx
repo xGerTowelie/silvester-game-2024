@@ -17,6 +17,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { GameHeader } from "./GameHeader"
 
 interface TVMonitorProps {
     gameState: GameState
@@ -50,10 +51,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
 
     return (
         <div className="flex flex-col w-screen min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 text-white p-8">
-            <header className="flex justify-between items-center mb-8">
-                <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">Trivia Master</h1>
-                <div className="text-3xl font-semibold">Round {iteration + 1}</div>
-            </header>
+            <GameHeader iteration={iteration + 1} />
 
             <div className="flex-1 flex gap-8 w-full">
                 <Card className="flex-1 min-w-0 bg-white/10 backdrop-blur-md border-none text-white overflow-hidden">
@@ -73,7 +71,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                                         <div className="flex space-x-2">
                                             <Popover>
                                                 <PopoverTrigger asChild>
-                                                    <Button variant="outline" size="icon">
+                                                    <Button variant="ghost" size="icon">
                                                         <HelpCircle className="h-4 w-4" />
                                                     </Button>
                                                 </PopoverTrigger>
@@ -91,7 +89,7 @@ export default function TVMonitor({ gameState, nextStep, kickPlayer }: TVMonitor
                                             </Popover>
                                             <Popover>
                                                 <PopoverTrigger asChild>
-                                                    <Button variant="outline" size="icon">
+                                                    <Button variant="ghost" size="icon">
                                                         <Globe className="h-4 w-4" />
                                                     </Button>
                                                 </PopoverTrigger>
