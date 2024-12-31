@@ -123,7 +123,7 @@ export default function PlayerPage() {
                 <Card className="w-full max-w-md bg-white/10 backdrop-blur-md">
                     <CardContent className="pt-6 flex flex-col items-center justify-center space-y-5">
                         <h1 className="text-3xl text-center text-white">Game closed</h1>
-                        <Button onClick={() => window.location.reload()}>Reload</Button>
+                        <Button onClick={() => window.location.reload()}>Reconnect</Button>
                     </CardContent>
                 </Card>
             </div>
