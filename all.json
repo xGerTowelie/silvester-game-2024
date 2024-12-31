@@ -1,813 +1,895 @@
 {
   "questions": [
     {
-      "question": "What is the area of Russia, the largest country in the world, in square kilometers?",
+      "question_english": "What is the area of Russia, the largest country in the world, in square kilometers?",
       "answer": "17,098,242 km²",
       "source": "https://en.wikipedia.org/wiki/Russia",
       "id": 0,
       "confidence": {
-       "claude": 95,
-       "gpt": 90
-      }
+        "claude": 95,
+        "gpt": 90
+      },
+      "question": "Wie groß ist die Fläche von Russland, dem größten Land der Welt, in Quadratkilometern?"
     },
     {
-      "question": "What is the population of China as of 2023?",
+      "question_english": "What is the population of China as of 2023?",
       "answer": "1,428,000,000",
       "source": "https://www.worldometers.info/world-population/china-population/",
       "id": 1,
       "confidence": {
         "claude": 95,
         "gpt": 90
-      }
+      },
+      "question": "Wie hoch ist die Bevölkerung Chinas im Jahr 2023?"
     },
     {
-      "question": "How many kilometers is the Great Wall of China in length?",
+      "question_english": "How many kilometers is the Great Wall of China in length?",
       "answer": "21,196 km",
       "source": "https://en.wikipedia.org/wiki/Great_Wall_of_China",
       "id": 2,
       "confidence": {
         "claude": 90,
         "gpt": 95
-      }
+      },
+      "question": "Wie viele Kilometer ist die Chinesische Mauer lang?"
     },
     {
-      "question": "In what year did Neil Armstrong first walk on the Moon?",
+      "question_english": "In what year did Neil Armstrong first walk on the Moon?",
       "answer": "1969",
       "source": "https://www.nasa.gov/",
       "id": 3,
       "confidence": {
         "claude": 85,
         "gpt": 100
-      }
+      },
+      "question": "In welchem Jahr betrat Neil Armstrong erstmals den Mond?"
     },
     {
-      "question": "How old was Albert Einstein when he published his theory of special relativity?",
+      "question_english": "How old was Albert Einstein when he published his theory of special relativity?",
       "answer": "26 years",
       "source": "https://www.britannica.com/biography/Albert-Einstein",
       "id": 4,
       "confidence": {
         "claude": 100,
         "gpt": 88
-      }
+      },
+      "question": "Wie alt war Albert Einstein, als er seine spezielle Relativitätstheorie veröffentlichte?"
     },
     {
-      "question": "What is the height of Mount Everest, the tallest mountain in the world, in meters?", "answer": "8,849 m",
+      "question_english": "What is the height of Mount Everest, the tallest mountain in the world, in meters?",
+      "answer": "8,849 m",
       "source": "https://en.wikipedia.org/wiki/Mount_Everest",
       "id": 5,
       "confidence": {
         "claude": 100,
         "gpt": 92
-      }
+      },
+      "question": "Wie hoch ist der Mount Everest, der höchste Berg der Welt, in Metern?"
     },
     {
-      "question": "How many kilometers is the Earth's equatorial circumference?",
+      "question_english": "How many kilometers is the Earth's equatorial circumference?",
       "answer": "40,075 km",
       "source": "https://en.wikipedia.org/wiki/Earth",
       "id": 6,
       "confidence": {
         "claude": 100,
         "gpt": 89
-      }
+      },
+      "question": "Wie viele Kilometer beträgt der Äquatorumfang der Erde?"
     },
     {
-      "question": "What is the age of the Universe estimated to be, in billions of years?",
+      "question_english": "What is the age of the Universe estimated to be, in billions of years?",
       "answer": "13.8 billion years",
       "source": "https://www.nasa.gov/",
       "id": 7,
       "confidence": {
         "claude": 100,
         "gpt": 93
-      }
+      },
+      "question": "Wie alt wird das Universum geschätzt, in Milliarden Jahren?"
     },
     {
-      "question": "How many years did the Hundred Years' War actually last?",
+      "question_english": "How many years did the Hundred Years' War actually last?",
       "answer": "116 years",
       "source": "https://en.wikipedia.org/wiki/Hundred_Years%27_War",
       "id": 8,
       "confidence": {
         "claude": 100,
         "gpt": 80
-      }
+      },
+      "question": "Wie viele Jahre dauerte der Hundertjährige Krieg tatsächlich?"
     },
     {
-      "question": "How many meters tall is the Eiffel Tower in Paris?",
+      "question_english": "How many meters tall is the Eiffel Tower in Paris?",
       "answer": "330 m",
       "source": "https://en.wikipedia.org/wiki/Eiffel_Tower",
       "id": 9,
       "confidence": {
         "claude": 100,
         "gpt": 97
-      }
+      },
+      "question": "Wie hoch ist der Eiffelturm in Paris in Metern?"
     },
     {
-      "question": "What is the population of the United States as of 2023?",
+      "question_english": "What is the population of the United States as of 2023?",
       "answer": "334,000,000",
       "source": "https://www.census.gov/",
       "id": 10,
       "confidence": {
         "claude": 100,
         "gpt": 85
-      }
+      },
+      "question": "Wie hoch ist die Bevölkerung der Vereinigten Staaten im Jahr 2023?"
     },
     {
-      "question": "How many kilometers is the distance from Earth to the Moon?",
+      "question_english": "How many kilometers is the distance from Earth to the Moon?",
       "answer": "384,400 km",
       "source": "https://en.wikipedia.org/wiki/Moon",
       "id": 11,
       "confidence": {
         "claude": 90,
         "gpt": 91
-      }
+      },
+      "question": "Wie viele Kilometer beträgt die Entfernung von der Erde zum Mond?"
     },
     {
-      "question": "What is the speed of light in a vacuum, in kilometers per second?",
+      "question_english": "What is the speed of light in a vacuum, in kilometers per second?",
       "answer": "299,792 km/s",
       "source": "https://en.wikipedia.org/wiki/Speed_of_light",
       "id": 12,
       "confidence": {
         "claude": 100,
         "gpt": 99
-      }
+      },
+      "question": "Wie schnell ist Licht im Vakuum, in Kilometern pro Sekunde?"
     },
     {
-      "question": "How many years did the Roman Empire last?",
+      "question_english": "How many years did the Roman Empire last?",
       "answer": "1,480 years",
       "source": "https://en.wikipedia.org/wiki/Roman_Empire",
       "id": 13,
       "confidence": {
         "claude": 100,
         "gpt": 84
-      }
+      },
+      "question": "Wie viele Jahre bestand das Römische Reich?"
     },
     {
-      "question": "What is the population of India as of 2023?",
+      "question_english": "What is the population of India as of 2023?",
       "answer": "1,417,000,000",
       "source": "https://www.worldometers.info/world-population/india-population/",
       "id": 14,
       "confidence": {
         "claude": 85,
         "gpt": 90
-      }
+      },
+      "question": "Wie hoch ist die Bevölkerung Indiens im Jahr 2023?"
     },
     {
-      "question": "How many meters is the Burj Khalifa, the tallest building in the world?",
+      "question_english": "How many meters is the Burj Khalifa, the tallest building in the world?",
       "answer": "828 m",
       "source": "https://en.wikipedia.org/wiki/Burj_Khalifa",
       "id": 15,
       "confidence": {
         "claude": 90,
         "gpt": 94
-      }
+      },
+      "question": "Wie hoch ist der Burj Khalifa, das höchste Gebäude der Welt, in Metern?"
     },
     {
-      "question": "What year did World War II end?",
+      "question_english": "What year did World War II end?",
       "answer": "1945",
       "source": "https://en.wikipedia.org/wiki/World_War_II",
       "id": 16,
       "confidence": {
         "claude": 100,
         "gpt": 88
-      }
+      },
+      "question": "In welchem Jahr endete der Zweite Weltkrieg?"
     },
     {
-      "question": "How old was Mozart when he composed his first symphony?",
+      "question_english": "How old was Mozart when he composed his first symphony?",
       "answer": "8 years",
       "source": "https://www.britannica.com/biography/Wolfgang-Amadeus-Mozart",
       "id": 17,
       "confidence": {
         "claude": 100,
         "gpt": 77
-      }
+      },
+      "question": "Wie alt war Mozart, als er seine erste Symphonie komponierte?"
     },
     {
-      "question": "How many seconds are there in a year?",
+      "question_english": "How many seconds are there in a year?",
       "answer": "31,536,000 seconds",
       "source": "https://en.wikipedia.org/wiki/Year",
       "id": 18,
       "confidence": {
         "claude": 95,
         "gpt": 86
-      }
+      },
+      "question": "Wie viele Sekunden hat ein Jahr?"
     },
     {
-      "question": "How many kilometers is the length of the Amazon River?",
+      "question_english": "How many kilometers is the length of the Amazon River?",
       "answer": "6,992 km",
       "source": "https://en.wikipedia.org/wiki/Amazon_River",
       "id": 19,
       "confidence": {
         "claude": 100,
         "gpt": 93
-      }
+      },
+      "question": "Wie viele Kilometer ist der Amazonas lang?"
     },
     {
-      "question": "What is the number of steps in the stairs of the Empire State Building?",
+      "question_english": "What is the number of steps in the stairs of the Empire State Building?",
       "answer": "1,576 steps",
       "source": "https://www.esbnyc.com/",
       "id": 20,
       "confidence": {
         "claude": 95,
         "gpt": 85
-      }
+      },
+      "question": "Wie viele Stufen hat die Treppe des Empire State Buildings?"
     },
     {
-      "question": "What is the height of the Statue of Liberty, including its pedestal, in meters?",
+      "question_english": "What is the height of the Statue of Liberty, including its pedestal, in meters?",
       "answer": "93 m",
       "source": "https://en.wikipedia.org/wiki/Statue_of_Liberty",
       "id": 21,
       "confidence": {
         "claude": 100,
         "gpt": 91
-      }
+      },
+      "question": "Wie hoch ist die Freiheitsstatue inklusive Sockel in Metern?"
     },
     {
-      "question": "How many days are there in a leap year?",
+      "question_english": "How many days are there in a leap year?",
       "answer": "366 days",
       "source": "https://en.wikipedia.org/wiki/Leap_year",
       "id": 22,
       "confidence": {
         "claude": 100,
         "gpt": 95
-      }
+      },
+      "question": "Wie viele Tage hat ein Schaltjahr?"
     },
     {
-      "question": "How many hours are there in a week?",
+      "question_english": "How many hours are there in a week?",
       "answer": "168 hours",
       "source": "https://en.wikipedia.org/wiki/Week",
       "id": 23,
       "confidence": {
         "claude": 100,
         "gpt": 84
-      }
+      },
+      "question": "Wie viele Stunden hat eine Woche?"
     },
     {
-      "question": "What is the depth of the Mariana Trench, the deepest oceanic trench, in meters?",
+      "question_english": "What is the depth of the Mariana Trench, the deepest oceanic trench, in meters?",
       "answer": "10,984 m",
       "source": "https://en.wikipedia.org/wiki/Mariana_Trench",
       "id": 24,
       "confidence": {
         "claude": 100,
         "gpt": 92
-      }
+      },
+      "question": "Wie tief ist der Marianengraben, der tiefste ozeanische Graben, in Metern?"
     },
     {
-      "question": "What is the age of the oldest verified person in history?",
+      "question_english": "What is the age of the oldest verified person in history?",
       "answer": "122 years",
       "source": "https://en.wikipedia.org/wiki/Jeanne_Calment",
       "id": 25,
       "confidence": {
         "claude": 100,
         "gpt": 89
-      }
+      },
+      "question": "Wie alt war die älteste verifizierte Person der Geschichte?"
     },
     {
-      "question": "What is the distance from Earth to the Sun in kilometers?",
+      "question_english": "What is the distance from Earth to the Sun in kilometers?",
       "answer": "149,597,870 km",
       "source": "https://en.wikipedia.org/wiki/Astronomical_unit",
       "id": 26,
       "confidence": {
         "claude": 100,
         "gpt": 96
-      }
+      },
+      "question": "Wie weit ist die Entfernung von der Erde zur Sonne in Kilometern?"
     },
     {
-      "question": "How many kilometers is the Trans-Siberian Railway in length?",
+      "question_english": "How many kilometers is the Trans-Siberian Railway in length?",
       "answer": "9,289 km",
       "source": "https://en.wikipedia.org/wiki/Trans-Siberian_Railway",
       "id": 27,
       "confidence": {
         "claude": 100,
         "gpt": 87
-      }
+      },
+      "question": "Wie viele Kilometer ist die Transsibirische Eisenbahn lang?"
     },
     {
-      "question": "What is the population of Brazil as of 2023?",
+      "question_english": "What is the population of Brazil as of 2023?",
       "answer": "216,000,000",
       "source": "https://www.worldometers.info/world-population/brazil-population/",
       "id": 28,
       "confidence": {
         "claude": 100,
         "gpt": 83
-      }
+      },
+      "question": "Wie hoch ist die Bevölkerung Brasiliens im Jahr 2023?"
     },
     {
-      "question": "In what year did the Titanic sink?",
+      "question_english": "In what year did the Titanic sink?",
       "answer": "1912",
       "source": "https://en.wikipedia.org/wiki/RMS_Titanic",
       "id": 29,
       "confidence": {
         "claude": 90,
         "gpt": 90
-      }
+      },
+      "question": "In welchem Jahr sank die Titanic?"
     },
     {
-      "question": "How many people visited the Eiffel Tower in 2022?",
+      "question_english": "How many people visited the Eiffel Tower in 2022?",
       "answer": "6,000,000",
       "source": "https://www.toureiffel.paris/en",
       "id": 30,
       "confidence": {
         "claude": 100,
         "gpt": 99
-      }
+      },
+      "question": "Wie viele Menschen besuchten den Eiffelturm im Jahr 2022?"
     },
     {
-      "question": "What is the length of the Panama Canal in kilometers?",
+      "question_english": "What is the length of the Panama Canal in kilometers?",
       "answer": "82 km",
       "source": "https://en.wikipedia.org/wiki/Panama_Canal",
       "id": 31,
       "confidence": {
         "claude": 100,
         "gpt": 91
-      }
+      },
+      "question": "Wie lang ist der Panamakanal in Kilometern?"
     },
     {
-      "question": "What is the height of the tallest tree in the world, Hyperion, in meters?",
+      "question_english": "What is the height of the tallest tree in the world, Hyperion, in meters?",
       "answer": "115.92 m",
       "source": "https://en.wikipedia.org/wiki/Hyperion_(tree)",
       "id": 32,
       "confidence": {
         "claude": 90,
         "gpt": 90
-      }
+      },
+      "question": "Wie hoch ist der höchste Baum der Welt, Hyperion, in Metern?"
     },
     {
-      "question": "How many days did Apollo 11's mission last?",
+      "question_english": "How many days did Apollo 11's mission last?",
       "answer": "8 days",
       "source": "https://www.nasa.gov/",
       "id": 33,
       "confidence": {
         "claude": 100,
         "gpt": 88
-      }
+      },
+      "question": "Wie viele Tage dauerte die Mission von Apollo 11?"
     },
     {
-      "question": "What is the average lifespan of a lion in the wild, in years?",
+      "question_english": "What is the average lifespan of a lion in the wild, in years?",
       "answer": "10-14 years",
       "source": "https://en.wikipedia.org/wiki/Lion",
       "id": 34,
       "confidence": {
         "claude": 85,
         "gpt": 86
-      }
+      },
+      "question": "Wie alt wird ein Löwe in freier Wildbahn durchschnittlich, in Jahren?"
     },
     {
-      "question": "How many countries are there in the world?",
+      "question_english": "How many countries are there in the world?",
       "answer": "195 countries",
       "source": "https://www.un.org/en/",
       "id": 35,
       "confidence": {
         "claude": 100,
         "gpt": 94
-      }
+      },
+      "question": "Wie viele Länder gibt es auf der Welt?"
     },
     {
-      "question": "What is the distance of the Tour de France cycling race, in kilometers?",
+      "question_english": "What is the distance of the Tour de France cycling race, in kilometers?",
       "answer": "3,500 km",
       "source": "https://www.letour.fr/",
       "id": 36,
       "confidence": {
         "claude": 95,
         "gpt": 83
-      }
+      },
+      "question": "Wie lang ist die Tour de France, das Radrennen, in Kilometern?"
     },
     {
-      "question": "What is the age of the oldest rock on Earth, in billions of years?",
+      "question_english": "What is the age of the oldest rock on Earth, in billions of years?",
       "answer": "4.03 billion years",
       "source": "https://en.wikipedia.org/wiki/Acasta_Gneiss",
       "id": 37,
       "confidence": {
         "claude": 100,
         "gpt": 97
-      }
+      },
+      "question": "Wie alt ist der älteste Stein der Erde, in Milliarden Jahren?"
     },
     {
-      "question": "How many years has Queen Elizabeth II reigned, the longest of any British monarch?",
+      "question_english": "How many years has Queen Elizabeth II reigned, the longest of any British monarch?",
       "answer": "70 years",
       "source": "https://en.wikipedia.org/wiki/Elizabeth_II",
       "id": 38,
       "confidence": {
         "claude": 100,
         "gpt": 99
-      }
+      },
+      "question": "Wie viele Jahre regierte Königin Elizabeth II., die am längsten regierende britische Monarchin?"
     },
     {
-      "question": "How many languages are spoken in the world?",
+      "question_english": "How many languages are spoken in the world?",
       "answer": "7,139 languages",
       "source": "https://www.ethnologue.com/",
       "id": 39,
       "confidence": {
         "claude": 100,
         "gpt": 92
-      }
+      },
+      "question": "Wie viele Sprachen werden auf der Welt gesprochen?"
     },
     {
-      "question": "What is the average depth of the world's oceans, in meters?",
+      "question_english": "What is the average depth of the world's oceans, in meters?",
       "answer": "3,688 m",
       "source": "https://en.wikipedia.org/wiki/Ocean",
       "id": 40,
       "confidence": {
         "claude": 100,
         "gpt": 90
-      }
+      },
+      "question": "Wie tief ist der Durchschnitt der Weltmeere in Metern?"
     },
     {
-      "question": "How many kilometers is the circumference of Jupiter?",
+      "question_english": "How many kilometers is the circumference of Jupiter?",
       "answer": "439,264 km",
       "source": "https://solarsystem.nasa.gov/",
       "id": 41,
       "confidence": {
         "claude": 100,
         "gpt": 91
-      }
+      },
+      "question": "Wie viele Kilometer ist der Umfang von Jupiter?"
     },
     {
-      "question": "What year did the Berlin Wall fall?",
+      "question_english": "What year did the Berlin Wall fall?",
       "answer": "1989",
       "source": "https://en.wikipedia.org/wiki/Berlin_Wall",
       "id": 42,
       "confidence": {
         "claude": 100,
         "gpt": 95
-      }
+      },
+      "question": "In welchem Jahr fiel die Berliner Mauer?"
     },
     {
-      "question": "How many bones are in the adult human body?",
+      "question_english": "How many bones are in the adult human body?",
       "answer": "206 bones",
       "source": "https://en.wikipedia.org/wiki/Human_skeleton",
       "id": 43,
       "confidence": {
         "claude": 100,
         "gpt": 88
-      }
+      },
+      "question": "Wie viele Knochen hat der menschliche Körper im Erwachsenenalter?"
     },
     {
-      "question": "What is the diameter of Earth in kilometers?",
+      "question_english": "What is the diameter of Earth in kilometers?",
       "answer": "12,742 km",
       "source": "https://en.wikipedia.org/wiki/Earth",
       "id": 44,
       "confidence": {
         "claude": 100,
         "gpt": 86
-      }
+      },
+      "question": "Wie groß ist der Durchmesser der Erde in Kilometern?"
     },
     {
-      "question": "How many meters is the tallest waterfall in the world, Angel Falls?",
+      "question_english": "How many meters is the tallest waterfall in the world, Angel Falls?",
       "answer": "979 m",
       "source": "https://en.wikipedia.org/wiki/Angel_Falls",
       "id": 45,
       "confidence": {
         "claude": 100,
         "gpt": 87
-      }
+      },
+      "question": "Wie hoch ist der höchste Wasserfall der Welt, Salto Ángel, in Metern?"
     },
     {
-      "question": "How many seconds does it take for light to travel from the Sun to Earth?",
+      "question_english": "How many seconds does it take for light to travel from the Sun to Earth?",
       "answer": "499 seconds",
       "source": "https://www.nasa.gov/",
       "id": 46,
       "confidence": {
         "claude": 100,
         "gpt": 99
-      }
+      },
+      "question": "Wie viele Sekunden benötigt das Licht, um von der Sonne zur Erde zu gelangen?"
     },
     {
-      "question": "What year did the Wright brothers make their first powered flight?",
+      "question_english": "What year did the Wright brothers make their first powered flight?",
       "answer": "1903",
       "source": "https://en.wikipedia.org/wiki/Wright_brothers",
       "id": 47,
       "confidence": {
         "claude": 90,
         "gpt": 89
-      }
+      },
+      "question": "In welchem Jahr führten die Brüder Wright ihren ersten motorisierten Flug durch?"
     },
     {
-      "question": "What is the total length of the Nile River in kilometers?",
+      "question_english": "What is the total length of the Nile River in kilometers?",
       "answer": "6,650 km",
       "source": "https://en.wikipedia.org/wiki/Nile",
       "id": 48,
       "confidence": {
         "claude": 100,
         "gpt": 97
-      }
+      },
+      "question": "Wie lang ist der Nil in Kilometern?"
     },
     {
-      "question": "How many minutes are there in a day?",
+      "question_english": "How many minutes are there in a day?",
       "answer": "1,440 minutes",
       "source": "https://en.wikipedia.org/wiki/Day",
       "id": 49,
       "confidence": {
         "claude": 100,
         "gpt": 92
-      }
+      },
+      "question": "Wie viele Minuten hat ein Tag?"
     },
     {
-      "question": "What is the age of the oldest living tree in years?",
+      "question_english": "What is the age of the oldest living tree in years?",
       "answer": "4,853 years",
       "source": "https://en.wikipedia.org/wiki/Old_Tjikko",
       "id": 50,
       "confidence": {
         "claude": 100,
         "gpt": 91
-      }
+      },
+      "question": "Wie alt ist der älteste lebende Baum in Jahren?"
     },
     {
-      "question": "How many kilometers is the distance around the equator?",
+      "question_english": "How many kilometers is the distance around the equator?",
       "answer": "40,075 km",
       "source": "https://en.wikipedia.org/wiki/Equator",
       "id": 51,
       "confidence": {
         "claude": 100,
         "gpt": 84
-      }
+      },
+      "question": "Wie viele Kilometer beträgt der Umfang des Äquators?"
     },
     {
-      "question": "In what year was the first modern Olympic Games held?",
+      "question_english": "In what year was the first modern Olympic Games held?",
       "answer": "1896",
       "source": "https://en.wikipedia.org/wiki/1896_Summer_Olympics",
       "id": 52,
       "confidence": {
         "claude": 100,
         "gpt": 90
-      }
+      },
+      "question": "In welchem Jahr fanden die ersten modernen Olympischen Spiele statt?"
     },
     {
-      "question": "What is the highest recorded temperature on Earth, in degrees Celsius?",
+      "question_english": "What is the highest recorded temperature on Earth, in degrees Celsius?",
       "answer": "56.7°C",
       "source": "https://wmo.asu.edu/",
       "id": 53,
       "confidence": {
         "claude": 95,
         "gpt": 93
-      }
+      },
+      "question": "Wie hoch ist die höchste gemessene Temperatur auf der Erde in Grad Celsius?"
     },
     {
-      "question": "How many years did the construction of the Great Pyramid of Giza take?",
+      "question_english": "How many years did the construction of the Great Pyramid of Giza take?",
       "answer": "27 years",
       "source": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza",
       "id": 54,
       "confidence": {
         "claude": 90,
         "gpt": 86
-      }
+      },
+      "question": "Wie viele Jahre dauerte der Bau der Großen Pyramide von Gizeh?"
     },
     {
-      "question": "How many kilograms does the average adult human brain weigh?",
+      "question_english": "How many kilograms does the average adult human brain weigh?",
       "answer": "1.4 kg",
       "source": "https://en.wikipedia.org/wiki/Human_brain",
       "id": 55,
       "confidence": {
         "claude": 100,
         "gpt": 98
-      }
+      },
+      "question": "Wie schwer ist das durchschnittliche Gehirn eines Erwachsenen in Kilogramm?"
     },
     {
-      "question": "How many meters is the Kármán line, marking the boundary of space?",
+      "question_english": "How many meters is the Kármán line, marking the boundary of space?",
       "answer": "100,000 m",
       "source": "https://en.wikipedia.org/wiki/K%C3%A1rm%C3%A1n_line",
       "id": 56,
       "confidence": {
         "claude": 100,
         "gpt": 95
-      }
+      },
+      "question": "Wie viele Meter ist die Kármán-Linie, die Grenze des Weltraums?"
     },
     {
-      "question": "What is the average life expectancy of a giant tortoise in years?",
+      "question_english": "What is the average life expectancy of a giant tortoise in years?",
       "answer": "100 years",
       "source": "https://en.wikipedia.org/wiki/Tortoise",
       "id": 57,
       "confidence": {
         "claude": 90,
         "gpt": 87
-      }
+      },
+      "question": "Wie hoch ist die durchschnittliche Lebenserwartung einer Riesenschildkröte in Jahren?"
     },
     {
-      "question": "What is the mass of the Earth in kilograms?",
+      "question_english": "What is the mass of the Earth in kilograms?",
       "answer": "5.97 x 10^24 kg",
       "source": "https://en.wikipedia.org/wiki/Earth",
       "id": 58,
       "confidence": {
         "claude": 100,
         "gpt": 88
-      }
+      },
+      "question": "Wie groß ist die Masse der Erde in Kilogramm?"
     },
     {
-      "question": "How many kilometers is the width of the Grand Canyon at its widest point?",
+      "question_english": "How many kilometers is the width of the Grand Canyon at its widest point?",
       "answer": "29 km",
       "source": "https://en.wikipedia.org/wiki/Grand_Canyon",
       "id": 59,
       "confidence": {
         "claude": 100,
         "gpt": 92
-      }
+      },
+      "question": "Wie breit ist der Grand Canyon an seiner breitesten Stelle in Kilometern?"
     },
     {
-      "question": "How many years did the Apollo program run?",
+      "question_english": "How many years did the Apollo program run?",
       "answer": "14 years",
       "source": "https://www.nasa.gov/",
       "id": 60,
       "confidence": {
         "claude": 100,
         "gpt": 91
-      }
+      },
+      "question": "Wie viele Jahre lief das Apollo-Programm?"
     },
     {
-      "question": "What is the depth of Lake Baikal, the world’s deepest freshwater lake, in meters?",
+      "question_english": "What is the depth of Lake Baikal, the world’s deepest freshwater lake, in meters?",
       "answer": "1,642 m",
       "source": "https://en.wikipedia.org/wiki/Lake_Baikal",
       "id": 61,
       "confidence": {
         "claude": 95,
         "gpt": 90
-      }
+      },
+      "question": "Wie tief ist der Baikalsee, der tiefste Süßwassersee der Welt, in Metern?"
     },
     {
-      "question": "How many people are born worldwide every day, on average?",
+      "question_english": "How many people are born worldwide every day, on average?",
       "answer": "385,000",
       "source": "https://www.worldometers.info/",
       "id": 62,
       "confidence": {
         "claude": 100,
         "gpt": 99
-      }
+      },
+      "question": "Wie viele Menschen werden durchschnittlich täglich weltweit geboren?"
     },
     {
-      "question": "What is the speed of sound in air, in meters per second?",
+      "question_english": "What is the speed of sound in air, in meters per second?",
       "answer": "343 m/s",
       "source": "https://en.wikipedia.org/wiki/Speed_of_sound",
       "id": 63,
       "confidence": {
         "claude": 90,
         "gpt": 94
-      }
+      },
+      "question": "Wie schnell ist Schall in Luft, in Metern pro Sekunde?"
     },
     {
-      "question": "How many moons does Jupiter have?",
+      "question_english": "How many moons does Jupiter have?",
       "answer": "95 moons",
       "source": "https://solarsystem.nasa.gov/",
       "id": 64,
       "confidence": {
         "claude": 100,
         "gpt": 89
-      }
+      },
+      "question": "Wie viele Monde hat Jupiter?"
     },
     {
-      "question": "How many kilometers is the longest nonstop commercial flight?",
+      "question_english": "How many kilometers is the longest nonstop commercial flight?",
       "answer": "15,349 km",
       "source": "https://en.wikipedia.org/wiki/Longest_flights",
       "id": 65,
       "confidence": {
         "claude": 100,
         "gpt": 85
-      }
+      },
+      "question": "Wie viele Kilometer ist der längste Nonstop-Flug?"
     },
     {
-      "question": "What year was the first successful human organ transplant performed?",
+      "question_english": "What year was the first successful human organ transplant performed?",
       "answer": "1954",
       "source": "https://en.wikipedia.org/wiki/Organ_transplantation",
       "id": 66,
       "confidence": {
         "claude": 100,
         "gpt": 92
-      }
+      },
+      "question": "In welchem Jahr wurde die erste erfolgreiche menschliche Organtransplantation durchgeführt?"
     },
     {
-      "question": "What is the current estimated population of Africa as of 2023?",
+      "question_english": "What is the current estimated population of Africa as of 2023?",
       "answer": "1,460,000,000",
       "source": "https://www.worldometers.info/world-population/africa-population/",
       "id": 67,
       "confidence": {
         "claude": 100,
         "gpt": 93
-      }
+      },
+      "question": "Wie hoch ist die geschätzte Bevölkerung Afrikas im Jahr 2023?"
     },
     {
-      "question": "How many years does it take Halley’s Comet to orbit the Sun?",
+      "question_english": "How many years does it take Halley’s Comet to orbit the Sun?",
       "answer": "75 years",
       "source": "https://en.wikipedia.org/wiki/Halley%27s_Comet",
       "id": 68,
       "confidence": {
         "claude": 100,
         "gpt": 84
-      }
+      },
+      "question": "Wie viele Jahre benötigt der Halleysche Komet für eine Umrundung der Sonne?"
     },
     {
-      "question": "How many kilograms is the average weight of an adult blue whale?",
+      "question_english": "How many kilograms is the average weight of an adult blue whale?",
       "answer": "136,000 kg",
       "source": "https://en.wikipedia.org/wiki/Blue_whale",
       "id": 69,
       "confidence": {
         "claude": 100,
         "gpt": 96
-      }
+      },
+      "question": "Wie schwer ist ein erwachsener Blauwal im Durchschnitt in Kilogramm?"
     },
     {
-      "question": "How many kilometers is the circumference of the Moon?",
+      "question_english": "How many kilometers is the circumference of the Moon?",
       "answer": "10,921 km",
       "source": "https://en.wikipedia.org/wiki/Moon",
       "id": 70,
       "confidence": {
         "claude": 95,
         "gpt": 97
-      }
+      },
+      "question": "Wie groß ist der Umfang des Mondes in Kilometern?"
     },
     {
-      "question": "What is the number of stars in the Milky Way Galaxy, estimated in billions?",
+      "question_english": "What is the number of stars in the Milky Way Galaxy, estimated in billions?",
       "answer": "100-400 billion",
       "source": "https://en.wikipedia.org/wiki/Milky_Way",
       "id": 71,
       "confidence": {
         "claude": 100,
         "gpt": 93
-      }
+      },
+      "question": "Wie viele Sterne gibt es in der Milchstraße, geschätzt in Milliarden?"
     },
     {
-      "question": "What is the approximate age of Stonehenge in years?",
+      "question_english": "What is the approximate age of Stonehenge in years?",
       "answer": "5,000 years",
       "source": "https://en.wikipedia.org/wiki/Stonehenge",
       "id": 72,
       "confidence": {
         "claude": 100,
         "gpt": 90
-      }
+      },
+      "question": "Wie alt ist Stonehenge ungefähr, in Jahren?"
     },
     {
-      "question": "How many days are there in the average human gestation period?",
+      "question_english": "How many days are there in the average human gestation period?",
       "answer": "280 days",
       "source": "https://en.wikipedia.org/wiki/Gestation",
       "id": 73,
       "confidence": {
         "claude": 100,
         "gpt": 98
-      }
+      },
+      "question": "Wie viele Tage beträgt die durchschnittliche menschliche Schwangerschaft?"
     },
     {
-      "question": "How many kilometers is the diameter of the Sun?",
+      "question_english": "How many kilometers is the diameter of the Sun?",
       "answer": "1,392,700 km",
       "source": "https://en.wikipedia.org/wiki/Sun",
       "id": 74,
       "confidence": {
         "claude": 100,
         "gpt": 91
-      }
+      },
+      "question": "Wie groß ist der Durchmesser der Sonne in Kilometern?"
     },
     {
-      "question": "What is the average temperature of the Earth’s core in degrees Celsius?",
+      "question_english": "What is the average temperature of the Earth’s core in degrees Celsius?",
       "answer": "5,200°C",
       "source": "https://en.wikipedia.org/wiki/Earth%27s_inner_core",
       "id": 75,
       "confidence": {
         "claude": 95,
         "gpt": 99
-      }
+      },
+      "question": "Wie hoch ist die durchschnittliche Temperatur des Erdkerns in Grad Celsius?"
     },
     {
-      "question": "How many days did it take for Phileas Fogg to complete his journey in Jules Verne's novel?",
+      "question_english": "How many days did it take for Phileas Fogg to complete his journey in Jules Verne's novel?",
       "answer": "80 days",
       "source": "https://en.wikipedia.org/wiki/Around_the_World_in_Eighty_Days",
       "id": 76,
       "confidence": {
         "claude": 100,
         "gpt": 88
-      }
+      },
+      "question": "Wie viele Tage brauchte Phileas Fogg für seine Reise in Jules Vernes Roman?"
     },
     {
-      "question": "How many meters is the Petronas Towers in Kuala Lumpur?",
+      "question_english": "How many meters is the Petronas Towers in Kuala Lumpur?",
       "answer": "452 m",
       "source": "https://en.wikipedia.org/wiki/Petronas_Towers",
       "id": 77,
       "confidence": {
         "claude": 100,
         "gpt": 90
-      }
+      },
+      "question": "Wie hoch sind die Petronas Towers in Kuala Lumpur in Metern?"
     },
     {
-      "question": "How many minutes does it take for sunlight to reach Earth?",
+      "question_english": "How many minutes does it take for sunlight to reach Earth?",
       "answer": "8.3 minutes",
       "source": "https://www.nasa.gov/",
       "id": 78,
       "confidence": {
         "claude": 95,
         "gpt": 97
-      }
+      },
+      "question": "Wie viele Minuten benötigt Sonnenlicht, um die Erde zu erreichen?"
     },
     {
-      "question": "What is the average number of taste buds on a human tongue?",
+      "question_english": "What is the average number of taste buds on a human tongue?",
       "answer": "10,000",
       "source": "https://en.wikipedia.org/wiki/Taste_bud",
       "id": 79,
       "confidence": {
         "claude": 100,
         "gpt": 86
-      }
+      },
+      "question": "Wie viele Geschmacksknospen hat die menschliche Zunge durchschnittlich?"
     },
     {
-      "question": "What year did the Black Death peak in Europe?",
+      "question_english": "What year did the Black Death peak in Europe?",
       "answer": "1347",
       "source": "https://en.wikipedia.org/wiki/Black_Death",
       "id": 80,
       "confidence": {
         "claude": 100,
         "gpt": 95
-      }
+      },
+      "question": "In welchem Jahr erreichte der Schwarze Tod seinen Höhepunkt in Europa?"
     }
   ]
 }

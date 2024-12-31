@@ -1,0 +1,329 @@
+{
+  "questions": [
+    {
+      "id": 0,
+      "question": "Wie groß ist die Fläche von Russland, dem größten Land der Welt, in Quadratkilometern?"
+    },
+    {
+      "id": 1,
+      "question": "Wie hoch ist die Bevölkerung Chinas im Jahr 2023?"
+    },
+    {
+      "id": 2,
+      "question": "Wie viele Kilometer ist die Chinesische Mauer lang?"
+    },
+    {
+      "id": 3,
+      "question": "In welchem Jahr betrat Neil Armstrong erstmals den Mond?"
+    },
+    {
+      "id": 4,
+      "question": "Wie alt war Albert Einstein, als er seine spezielle Relativitätstheorie veröffentlichte?"
+    },
+    {
+      "id": 5,
+      "question": "Wie hoch ist der Mount Everest, der höchste Berg der Welt, in Metern?"
+    },
+    {
+      "id": 6,
+      "question": "Wie viele Kilometer beträgt der Äquatorumfang der Erde?"
+    },
+    {
+      "id": 7,
+      "question": "Wie alt wird das Universum geschätzt, in Milliarden Jahren?"
+    },
+    {
+      "id": 8,
+      "question": "Wie viele Jahre dauerte der Hundertjährige Krieg tatsächlich?"
+    },
+    {
+      "id": 9,
+      "question": "Wie hoch ist der Eiffelturm in Paris in Metern?"
+    },
+    {
+      "id": 10,
+      "question": "Wie hoch ist die Bevölkerung der Vereinigten Staaten im Jahr 2023?"
+    },
+    {
+      "id": 11,
+      "question": "Wie viele Kilometer beträgt die Entfernung von der Erde zum Mond?"
+    },
+    {
+      "id": 12,
+      "question": "Wie schnell ist Licht im Vakuum, in Kilometern pro Sekunde?"
+    },
+    {
+      "id": 13,
+      "question": "Wie viele Jahre bestand das Römische Reich?"
+    },
+    {
+      "id": 14,
+      "question": "Wie hoch ist die Bevölkerung Indiens im Jahr 2023?"
+    },
+    {
+      "id": 15,
+      "question": "Wie hoch ist der Burj Khalifa, das höchste Gebäude der Welt, in Metern?"
+    },
+    {
+      "id": 16,
+      "question": "In welchem Jahr endete der Zweite Weltkrieg?"
+    },
+    {
+      "id": 17,
+      "question": "Wie alt war Mozart, als er seine erste Symphonie komponierte?"
+    },
+    {
+      "id": 18,
+      "question": "Wie viele Sekunden hat ein Jahr?"
+    },
+    {
+      "id": 19,
+      "question": "Wie viele Kilometer ist der Amazonas lang?"
+    },
+    {
+      "id": 20,
+      "question": "Wie viele Stufen hat die Treppe des Empire State Buildings?"
+    },
+    {
+      "id": 21,
+      "question": "Wie hoch ist die Freiheitsstatue inklusive Sockel in Metern?"
+    },
+    {
+      "id": 22,
+      "question": "Wie viele Tage hat ein Schaltjahr?"
+    },
+    {
+      "id": 23,
+      "question": "Wie viele Stunden hat eine Woche?"
+    },
+    {
+      "id": 24,
+      "question": "Wie tief ist der Marianengraben, der tiefste ozeanische Graben, in Metern?"
+    },
+    {
+      "id": 25,
+      "question": "Wie alt war die älteste verifizierte Person der Geschichte?"
+    },
+    {
+      "id": 26,
+      "question": "Wie weit ist die Entfernung von der Erde zur Sonne in Kilometern?"
+    },
+    {
+      "id": 27,
+      "question": "Wie viele Kilometer ist die Transsibirische Eisenbahn lang?"
+    },
+    {
+      "id": 28,
+      "question": "Wie hoch ist die Bevölkerung Brasiliens im Jahr 2023?"
+    },
+    {
+      "id": 29,
+      "question": "In welchem Jahr sank die Titanic?"
+    },
+    {
+      "id": 30,
+      "question": "Wie viele Menschen besuchten den Eiffelturm im Jahr 2022?"
+    },
+    {
+      "id": 31,
+      "question": "Wie lang ist der Panamakanal in Kilometern?"
+    },
+    {
+      "id": 32,
+      "question": "Wie hoch ist der höchste Baum der Welt, Hyperion, in Metern?"
+    },
+    {
+      "id": 33,
+      "question": "Wie viele Tage dauerte die Mission von Apollo 11?"
+    },
+    {
+      "id": 34,
+      "question": "Wie alt wird ein Löwe in freier Wildbahn durchschnittlich, in Jahren?"
+    },
+    {
+      "id": 35,
+      "question": "Wie viele Länder gibt es auf der Welt?"
+    },
+    {
+      "id": 36,
+      "question": "Wie lang ist die Tour de France, das Radrennen, in Kilometern?"
+    },
+    {
+      "id": 37,
+      "question": "Wie alt ist der älteste Stein der Erde, in Milliarden Jahren?"
+    },
+    {
+      "id": 38,
+      "question": "Wie viele Jahre regierte Königin Elizabeth II., die am längsten regierende britische Monarchin?"
+    },
+    {
+      "id": 39,
+      "question": "Wie viele Sprachen werden auf der Welt gesprochen?"
+    },
+    {
+      "id": 40,
+      "question": "Wie tief ist der Durchschnitt der Weltmeere in Metern?"
+    },
+    {
+      "id": 41,
+      "question": "Wie viele Kilometer ist der Umfang von Jupiter?"
+    },
+    {
+      "id": 42,
+      "question": "In welchem Jahr fiel die Berliner Mauer?"
+    },
+    {
+      "id": 43,
+      "question": "Wie viele Knochen hat der menschliche Körper im Erwachsenenalter?"
+    },
+    {
+      "id": 44,
+      "question": "Wie groß ist der Durchmesser der Erde in Kilometern?"
+    },
+    {
+      "id": 45,
+      "question": "Wie hoch ist der höchste Wasserfall der Welt, Salto Ángel, in Metern?"
+    },
+    {
+      "id": 46,
+      "question": "Wie viele Sekunden benötigt das Licht, um von der Sonne zur Erde zu gelangen?"
+    },
+    {
+      "id": 47,
+      "question": "In welchem Jahr führten die Brüder Wright ihren ersten motorisierten Flug durch?"
+    },
+    {
+      "id": 48,
+      "question": "Wie lang ist der Nil in Kilometern?"
+    },
+    {
+      "id": 49,
+      "question": "Wie viele Minuten hat ein Tag?"
+    },
+    {
+      "id": 50,
+      "question": "Wie alt ist der älteste lebende Baum in Jahren?"
+    },
+    {
+      "id": 51,
+      "question": "Wie viele Kilometer beträgt der Umfang des Äquators?"
+    },
+    {
+      "id": 52,
+      "question": "In welchem Jahr fanden die ersten modernen Olympischen Spiele statt?"
+    },
+    {
+      "id": 53,
+      "question": "Wie hoch ist die höchste gemessene Temperatur auf der Erde in Grad Celsius?"
+    },
+    {
+      "id": 54,
+      "question": "Wie viele Jahre dauerte der Bau der Großen Pyramide von Gizeh?"
+    },
+    {
+      "id": 55,
+      "question": "Wie schwer ist das durchschnittliche Gehirn eines Erwachsenen in Kilogramm?"
+    },
+    {
+      "id": 56,
+      "question": "Wie viele Meter ist die Kármán-Linie, die Grenze des Weltraums?"
+    },
+    {
+      "id": 57,
+      "question": "Wie hoch ist die durchschnittliche Lebenserwartung einer Riesenschildkröte in Jahren?"
+    },
+    {
+      "id": 58,
+      "question": "Wie groß ist die Masse der Erde in Kilogramm?"
+    },
+    {
+      "id": 59,
+      "question": "Wie breit ist der Grand Canyon an seiner breitesten Stelle in Kilometern?"
+    },
+    {
+      "id": 60,
+      "question": "Wie viele Jahre lief das Apollo-Programm?"
+    },
+    {
+      "id": 61,
+      "question": "Wie tief ist der Baikalsee, der tiefste Süßwassersee der Welt, in Metern?"
+    },
+    {
+      "id": 62,
+      "question": "Wie viele Menschen werden durchschnittlich täglich weltweit geboren?"
+    },
+    {
+      "id": 63,
+      "question": "Wie schnell ist Schall in Luft, in Metern pro Sekunde?"
+    },
+    {
+      "id": 64,
+      "question": "Wie viele Monde hat Jupiter?"
+    },
+    {
+      "id": 65,
+      "question": "Wie viele Kilometer ist der längste Nonstop-Flug?"
+    },
+    {
+      "id": 66,
+      "question": "In welchem Jahr wurde die erste erfolgreiche menschliche Organtransplantation durchgeführt?"
+    },
+    {
+      "id": 67,
+      "question": "Wie hoch ist die geschätzte Bevölkerung Afrikas im Jahr 2023?"
+    },
+    {
+      "id": 68,
+      "question": "Wie viele Jahre benötigt der Halleysche Komet für eine Umrundung der Sonne?"
+    },
+    {
+      "id": 69,
+      "question": "Wie schwer ist ein erwachsener Blauwal im Durchschnitt in Kilogramm?"
+    },
+    {
+      "id": 70,
+      "question": "Wie groß ist der Umfang des Mondes in Kilometern?"
+    },
+    {
+      "id": 71,
+      "question": "Wie viele Sterne gibt es in der Milchstraße, geschätzt in Milliarden?"
+    },
+    {
+      "id": 72,
+      "question": "Wie alt ist Stonehenge ungefähr, in Jahren?"
+    },
+    {
+      "id": 73,
+      "question": "Wie viele Tage beträgt die durchschnittliche menschliche Schwangerschaft?"
+    },
+    {
+      "id": 74,
+      "question": "Wie groß ist der Durchmesser der Sonne in Kilometern?"
+    },
+    {
+      "id": 75,
+      "question": "Wie hoch ist die durchschnittliche Temperatur des Erdkerns in Grad Celsius?"
+    },
+    {
+      "id": 76,
+      "question": "Wie viele Tage brauchte Phileas Fogg für seine Reise in Jules Vernes Roman?"
+    },
+    {
+      "id": 77,
+      "question": "Wie hoch sind die Petronas Towers in Kuala Lumpur in Metern?"
+    },
+    {
+      "id": 78,
+      "question": "Wie viele Minuten benötigt Sonnenlicht, um die Erde zu erreichen?"
+    },
+    {
+      "id": 79,
+      "question": "Wie viele Geschmacksknospen hat die menschliche Zunge durchschnittlich?"
+    },
+    {
+      "id": 80,
+      "question": "In welchem Jahr erreichte der Schwarze Tod seinen Höhepunkt in Europa?"
+    }
+  ]
+}
+
