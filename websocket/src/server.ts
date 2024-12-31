@@ -132,9 +132,12 @@ async function createInitialRound(): Promise<Round> {
         step: "question",
         number: 1,
         question: question.question,
+        question_english: question.question_english,
         hint1: question.hint1 || '',
         hint2: question.hint2 || '',
-        solution: question.answer
+        solution: question.answer,
+        source: question.source,
+        confidence: question.confidence,
     };
 }
 
@@ -148,6 +151,7 @@ async function initializeGame() {
 }
 
 io.use((socket, next) => {
+    console.log("socket:", socket)
     try {
         next();
     } catch (error) {
@@ -304,7 +308,7 @@ io.on("connection", async (socket: Socket) => {
 
             const player = Game.players.find(player => player.socketId === socket.id);
             if (player) {
-                player.socketId = null;
+                player.socketId = "";
                 player.lastActive = Date.now();
                 console.log(`Player ${player.name} disconnected but remains in the game!`);
                 io.emit("game_state_update", { game: Game });

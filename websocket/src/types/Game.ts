@@ -11,9 +11,15 @@ export type Round = {
     step: "question" | "choices" | "hint1" | "hint2" | "solution";
     number: number;
     question: string;
+    question_english: string;
     hint1: string;
     hint2: string;
     solution: string;
+    source: string;
+    confidence: {
+        claude: number;
+        gpt: number;
+    };
 }
 
 export type GameState = {
@@ -25,6 +31,7 @@ export type GameState = {
 export interface Question {
     id: number;
     question: string;
+    question_english: string;
     answer: string;
     source: string;
     hint1: string;
