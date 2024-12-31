@@ -17,8 +17,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const PORT = 3001;
-const frontendUrl = process.env.FRONTEND_SITE_URL
-console.log(frontendUrl)
+const frontendUrl = process.env.FRONTEND_SITE_URL;
+console.log(frontendUrl);
 
 const httpServer = createServer();
 
@@ -158,6 +158,9 @@ io.use((socket, next) => {
     }
 });
 
+// Add a new Map to store player choices
+const playerChoices = new Map();
+
 io.on("connection", async (socket: Socket) => {
     connections.set(socket.id, socket);
     console.log(`New connection added to the pool: ${socket.id}`);
@@ -212,6 +215,7 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
+    // Modify the "join" event handler to restore player choice on reconnection
     socket.on("join", (event: JoinEvent, callback: (response: JoinEventResponse) => void) => {
         try {
             if (!event.name || !event.color) {
@@ -220,25 +224,31 @@ io.on("connection", async (socket: Socket) => {
 
             const existingPlayer = Game.players.find(p => p.name.toLowerCase() === event.name.toLowerCase());
             if (existingPlayer) {
-                throw new Error("Player name already taken");
+                // Update the existing player's socket ID
+                existingPlayer.socketId = socket.id;
+                // Restore the player's choice if it exists
+                if (playerChoices.has(existingPlayer.name)) {
+                    existingPlayer.choice = playerChoices.get(existingPlayer.name);
+                }
+                callback({ player: existingPlayer });
+            } else {
+                const newPlayer: Player = {
+                    id: socket.id,
+                    socketId: socket.id,
+                    name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
+                    color: event.color
+                };
+
+                Game.players.push(newPlayer);
+
+                if (monitor) {
+                    const event: PlayerJoinedEvent = { player: newPlayer };
+                    monitor.emit("player_joined", event);
+                }
+
+                console.log(`New player "${newPlayer.name}" joined the game!`);
+                callback({ player: newPlayer });
             }
-
-            const newPlayer: Player = {
-                id: socket.id,
-                socketId: socket.id,
-                name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
-                color: event.color
-            };
-
-            Game.players.push(newPlayer);
-
-            if (monitor) {
-                const event: PlayerJoinedEvent = { player: newPlayer };
-                monitor.emit("player_joined", event);
-            }
-
-            console.log(`New player "${newPlayer.name}" joined the game!`);
-            callback({ player: newPlayer });
             io.emit("game_state_update", { game: Game });
         } catch (error) {
             console.error("Error in join:", error);
@@ -256,11 +266,14 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
+    // Modify the "choice" event handler
     socket.on("choice", (event: PlayerChoiceEvent) => {
         try {
             const player = Game.players.find(p => p.name === event.choice.playerName);
             if (player) {
                 player.choice = event.choice.value;
+                // Store the choice in the playerChoices Map
+                playerChoices.set(player.name, event.choice.value);
                 console.log(`Player ${event.choice.playerName} submitted their choice: ${event.choice.value}`);
                 io.emit("game_state_update", { game: Game });
             }
@@ -289,6 +302,7 @@ io.on("connection", async (socket: Socket) => {
         }
     });
 
+    // Modify the "disconnect" event handler
     socket.on("disconnect", () => {
         try {
             connections.delete(socket.id);
@@ -296,12 +310,9 @@ io.on("connection", async (socket: Socket) => {
 
             const player = Game.players.find(player => player.socketId === socket.id);
             if (player) {
-                Game.players = Game.players.filter(p => p.socketId !== socket.id);
-                if (monitor) {
-                    const event: PlayerLeftEvent = { name: player.name };
-                    monitor.emit("player_left", event);
-                }
-                console.log(`Player ${player.name} disconnected and left the game!`);
+                // Don't remove the player from the game, just mark them as disconnected
+                player.socketId = null;
+                console.log(`Player ${player.name} disconnected but remains in the game!`);
                 io.emit("game_state_update", { game: Game });
             }
 
@@ -315,8 +326,23 @@ io.on("connection", async (socket: Socket) => {
     });
 });
 
+// Add a new function to clean up inactive players periodically
+function cleanupInactivePlayers() {
+    const now = Date.now();
+    Game.players = Game.players.filter(player => {
+        if (!player.socketId && now - (player.lastActive || 0) > 5 * 60 * 1000) { //Added || 0 to handle undefined lastActive
+            // Remove player if they've been inactive for more than 5 minutes
+            playerChoices.delete(player.name);
+            return false;
+        }
+        return true;
+    });
+    io.emit("game_state_update", { game: Game });
+}
+
+// Run the cleanup function every minute
+setInterval(cleanupInactivePlayers, 60 * 1000);
+
 httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-
