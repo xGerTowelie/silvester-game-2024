@@ -43,6 +43,9 @@ let Game: GameState = {
     iteration: 0
 };
 
+// New: Keep track of players who have submitted choices for the current round
+const submittedChoices = new Set<string>();
+
 async function getQuestion(): Promise<Question> {
     try {
         const filePath = path.join(process.cwd(), '../all.json');
@@ -148,10 +151,11 @@ async function initializeGame() {
         players: [],
         iteration: 0
     };
+    // Clear submitted choices when initializing a new game
+    submittedChoices.clear();
 }
 
 io.use((socket, next) => {
-    console.log("socket:", socket)
     try {
         next();
     } catch (error) {
@@ -206,6 +210,8 @@ io.on("connection", async (socket: Socket) => {
                         player.choice = undefined;
                         playerChoices.delete(player.name);
                     });
+                    // Clear submitted choices for the new round
+                    submittedChoices.clear();
                     break;
             }
             io.emit("game_state_update", { game: Game });
@@ -268,12 +274,16 @@ io.on("connection", async (socket: Socket) => {
     socket.on("choice", (event: PlayerChoiceEvent) => {
         try {
             const player = Game.players.find(p => p.name === event.choice.playerName);
-            if (player) {
+            if (player && !submittedChoices.has(player.name)) {
                 player.choice = event.choice.value;
                 player.lastActive = Date.now();
                 playerChoices.set(player.name, event.choice.value);
+                submittedChoices.add(player.name);
                 console.log(`Player ${event.choice.playerName} submitted their choice: ${event.choice.value}`);
                 io.emit("game_state_update", { game: Game });
+            } else if (submittedChoices.has(player?.name || '')) {
+                console.log(`Player ${event.choice.playerName} attempted to submit a second choice, but was prevented.`);
+                socket.emit("error", { message: "You have already submitted a choice for this round." });
             }
         } catch (error) {
             console.error("Error in choice:", error);
@@ -288,6 +298,7 @@ io.on("connection", async (socket: Socket) => {
                 const player = Game.players[playerIndex];
                 Game.players.splice(playerIndex, 1);
                 playerChoices.delete(player.name);
+                submittedChoices.delete(player.name);
                 const playerSocket = connections.get(player.socketId || '');
                 if (playerSocket) {
                     playerSocket.disconnect();
@@ -329,6 +340,7 @@ function cleanupInactivePlayers() {
     Game.players = Game.players.filter(player => {
         if (!player.socketId && (now - player.lastActive) > 5 * 60 * 1000) {
             playerChoices.delete(player.name);
+            submittedChoices.delete(player.name);
             return false;
         }
         return true;

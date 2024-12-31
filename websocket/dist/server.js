@@ -16,9 +16,11 @@ const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const promises_1 = __importDefault(require("fs/promises"));
 const path_1 = __importDefault(require("path"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const PORT = 3001;
 const frontendUrl = process.env.FRONTEND_SITE_URL;
-console.log(frontendUrl);
+console.log('Frontend URL:', frontendUrl);
 const httpServer = (0, http_1.createServer)();
 const io = new socket_io_1.Server(httpServer, {
     cors: {
@@ -31,6 +33,16 @@ const io = new socket_io_1.Server(httpServer, {
     },
 });
 const returnedQuestionIds = new Set();
+const connections = new Map();
+const playerChoices = new Map();
+let monitor = null;
+let Game = {
+    round: null,
+    players: [],
+    iteration: 0
+};
+// New: Keep track of players who have submitted choices for the current round
+const submittedChoices = new Set();
 function getQuestion() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -109,17 +121,15 @@ function createInitialRound() {
             step: "question",
             number: 1,
             question: question.question,
-            hint1: question.hint1,
-            hint2: question.hint2,
-            solution: question.answer
+            question_english: question.question_english,
+            hint1: question.hint1 || '',
+            hint2: question.hint2 || '',
+            solution: question.answer,
+            source: question.source,
+            confidence: question.confidence,
         };
     });
 }
-let Game = {
-    round: null,
-    players: [],
-    iteration: 0
-};
 function initializeGame() {
     return __awaiter(this, void 0, void 0, function* () {
         const initialRound = yield createInitialRound();
@@ -128,17 +138,16 @@ function initializeGame() {
             players: [],
             iteration: 0
         };
+        // Clear submitted choices when initializing a new game
+        submittedChoices.clear();
     });
 }
-const connections = new Map();
-let monitor = null;
 io.use((socket, next) => {
-    console.log(socket);
     try {
         next();
     }
     catch (error) {
-        console.log(error);
+        console.error('Socket middleware error:', error);
         next(new Error("Authentication error"));
     }
 });
@@ -181,7 +190,10 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
                     Game.iteration++;
                     Game.players.forEach(player => {
                         player.choice = undefined;
+                        playerChoices.delete(player.name);
                     });
+                    // Clear submitted choices for the new round
+                    submittedChoices.clear();
                     break;
             }
             io.emit("game_state_update", { game: Game });
@@ -198,21 +210,29 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
             }
             const existingPlayer = Game.players.find(p => p.name.toLowerCase() === event.name.toLowerCase());
             if (existingPlayer) {
-                throw new Error("Player name already taken");
+                existingPlayer.socketId = socket.id;
+                existingPlayer.lastActive = Date.now();
+                if (playerChoices.has(existingPlayer.name)) {
+                    existingPlayer.choice = playerChoices.get(existingPlayer.name) || undefined;
+                }
+                callback({ player: existingPlayer });
             }
-            const newPlayer = {
-                id: socket.id,
-                socketId: socket.id,
-                name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
-                color: event.color
-            };
-            Game.players.push(newPlayer);
-            if (monitor) {
-                const event = { player: newPlayer };
-                monitor.emit("player_joined", event);
+            else {
+                const newPlayer = {
+                    id: socket.id,
+                    socketId: socket.id,
+                    name: event.name.charAt(0).toUpperCase() + event.name.substring(1),
+                    color: event.color,
+                    lastActive: Date.now()
+                };
+                Game.players.push(newPlayer);
+                if (monitor) {
+                    const event = { player: newPlayer };
+                    monitor.emit("player_joined", event);
+                }
+                console.log(`New player "${newPlayer.name}" joined the game!`);
+                callback({ player: newPlayer });
             }
-            console.log(`New player "${newPlayer.name}" joined the game!`);
-            callback({ player: newPlayer });
             io.emit("game_state_update", { game: Game });
         }
         catch (error) {
@@ -233,10 +253,17 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
     socket.on("choice", (event) => {
         try {
             const player = Game.players.find(p => p.name === event.choice.playerName);
-            if (player) {
+            if (player && !submittedChoices.has(player.name)) {
                 player.choice = event.choice.value;
+                player.lastActive = Date.now();
+                playerChoices.set(player.name, event.choice.value);
+                submittedChoices.add(player.name);
                 console.log(`Player ${event.choice.playerName} submitted their choice: ${event.choice.value}`);
                 io.emit("game_state_update", { game: Game });
+            }
+            else if (submittedChoices.has((player === null || player === void 0 ? void 0 : player.name) || '')) {
+                console.log(`Player ${event.choice.playerName} attempted to submit a second choice, but was prevented.`);
+                socket.emit("error", { message: "You have already submitted a choice for this round." });
             }
         }
         catch (error) {
@@ -250,7 +277,9 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
             if (playerIndex !== -1) {
                 const player = Game.players[playerIndex];
                 Game.players.splice(playerIndex, 1);
-                const playerSocket = connections.get(player.socketId);
+                playerChoices.delete(player.name);
+                submittedChoices.delete(player.name);
+                const playerSocket = connections.get(player.socketId || '');
                 if (playerSocket) {
                     playerSocket.disconnect();
                 }
@@ -269,12 +298,9 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`Connection removed from the pool: ${socket.id}`);
             const player = Game.players.find(player => player.socketId === socket.id);
             if (player) {
-                Game.players = Game.players.filter(p => p.socketId !== socket.id);
-                if (monitor) {
-                    const event = { name: player.name };
-                    monitor.emit("player_left", event);
-                }
-                console.log(`Player ${player.name} disconnected and left the game!`);
+                player.socketId = "";
+                player.lastActive = Date.now();
+                console.log(`Player ${player.name} disconnected but remains in the game!`);
                 io.emit("game_state_update", { game: Game });
             }
             if (monitor === socket) {
@@ -287,6 +313,19 @@ io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
         }
     });
 }));
+function cleanupInactivePlayers() {
+    const now = Date.now();
+    Game.players = Game.players.filter(player => {
+        if (!player.socketId && (now - player.lastActive) > 5 * 60 * 1000) {
+            playerChoices.delete(player.name);
+            submittedChoices.delete(player.name);
+            return false;
+        }
+        return true;
+    });
+    io.emit("game_state_update", { game: Game });
+}
+setInterval(cleanupInactivePlayers, 60 * 1000);
 httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
